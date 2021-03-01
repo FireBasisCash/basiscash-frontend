@@ -1,6 +1,6 @@
-![Basis Cash Title Image](https://raw.githubusercontent.com/Basis-Cash/basiscash-protocol/master/assets/bg.jpeg)
+![Fire Basis Cash Title Image](https://raw.githubusercontent.com/Basis-Cash/basiscash-protocol/master/assets/bg.jpeg)
 
-# Basis Cash  Interface
+# Fire Basis Cash  Interface
 
 This is front-end repository of the [basis.cash](https://basis.cash/).
 

@@ -17,8 +17,9 @@ const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
 
   const { bankId } = useParams();
+  console.log(bankId);
   const bank = useBank(bankId);
-
+  console.log(bank);
   const { account } = useWallet();
   const { onRedeem } = useRedeem(bank);
 
@@ -58,7 +59,7 @@ const Bank: React.FC = () => {
 const LPTokenHelpText: React.FC<{ bank: BankEntity }> = ({ bank }) => {
   let pairName: string;
   let uniswapUrl: string;
-  if (bank.depositTokenName.includes('BAC')) {
+  if (bank.depositTokenName.includes('FBC')) {
     pairName = 'BAC-DAI pair';
     uniswapUrl = 'https://app.uniswap.org/#/add/0x3449FC1Cd036255BA1EB19d65fF4BA2b8903A69a/0x6B175474E89094C44Da98b954EedeAC495271d0F';
   } else {

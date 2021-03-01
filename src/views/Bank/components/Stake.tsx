@@ -89,9 +89,15 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
                   <RemoveIcon />
                 </IconButton>
                 <StyledActionSpacer />
-                <IconButton
+                {/* <IconButton
                   disabled={bank.finished}
                   onClick={() => (bank.finished ? null : onPresentDeposit())}
+                >
+                  <AddIcon />
+                </IconButton> */}
+                   <IconButton
+                  // disabled={bank.finished}
+                  onClick={onPresentDeposit}
                 >
                   <AddIcon />
                 </IconButton>

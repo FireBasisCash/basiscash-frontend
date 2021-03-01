@@ -31,21 +31,21 @@ const Home: React.FC = () => {
     }
   }, [basisCash]);
 
-  const cashAddr = useMemo(() => basisCash?.BAC.address, [basisCash]);
-  const shareAddr = useMemo(() => basisCash?.BAS.address, [basisCash]);
-  const bondAddr = useMemo(() => basisCash?.BAB.address, [basisCash]);
+  const cashAddr = useMemo(() => basisCash?.FBC.address, [basisCash]);
+  const shareAddr = useMemo(() => basisCash?.FBS.address, [basisCash]);
+  const bondAddr = useMemo(() => basisCash?.FBB.address, [basisCash]);
 
   return (
     <Page>
       <PageHeader
         icon="👋"
-        subtitle="Buy, sell, and provide liquidity for Basis Cash and Basis Shares on Uniswap"
-        title="Welcome to Basis Cash!"
+        subtitle="Buy, sell, and provide liquidity for Fire Basis Cash and Fire Basis Shares on Uniswap"
+        title="Welcome to Fire Basis Cash!"
       />
       <Spacer size="md" />
       <CardWrapper>
         <HomeCard
-          title="Basis Cash"
+          title="Fire Basis Cash"
           symbol="BAC"
           color="#EEA7ED"
           supplyLabel="Circulating Supply"
@@ -54,7 +54,7 @@ const Home: React.FC = () => {
         />
         <Spacer size="lg" />
         <HomeCard
-          title="Basis Share"
+          title="Fire Basis Share"
           symbol="BAS"
           color="#E83725"
           address={shareAddr}

@@ -36,20 +36,20 @@ export default function Updater(): null {
 
   // attach/detach listeners
   useEffect(() => {
-    if (!ethereum || !chainId || !windowVisible) return undefined;
-    setState({ chainId, blockNumber: null });
+      if (!ethereum || !chainId || !windowVisible)
+        return undefined;
+      setState({ chainId, blockNumber: null });
 
-    const provider = getDefaultProvider();
-    provider
-      .getBlockNumber()
-      .then(blockNumberCallback)
-      .catch((error) =>
-        console.error(`Failed to get block number for chainId: ${chainId}`, error),
-      );
+      const provider = getDefaultProvider();
+      provider
+        .getBlockNumber()
+        .then(blockNumberCallback)
+        .catch((error) => console.error(`Failed to get block number for chainId: ${chainId}`, error)
+        );
 
-    provider.on('block', blockNumberCallback)
-    return () => provider.removeListener('block', blockNumberCallback);
-  }, [dispatch, chainId, ethereum, blockNumberCallback, windowVisible]);
+      provider.on('block', blockNumberCallback);
+      provider.removeListener('block', blockNumberCallback);
+    }, [dispatch, chainId, ethereum, blockNumberCallback, windowVisible]);
 
   const debouncedState = useDebounce(state, 100);
 

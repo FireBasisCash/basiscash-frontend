@@ -30,17 +30,17 @@ const Stake: React.FC = () => {
   const basisCash = useBasisCash();
   const boardroomVersion = useBoardroomVersion();
   const [approveStatus, approve] = useApprove(
-    basisCash.BAS,
+    basisCash.FBS,
     basisCash.boardroomByVersion(boardroomVersion).address,
   );
 
-  const tokenBalance = useTokenBalance(basisCash.BAS);
+  const tokenBalance = useTokenBalance(basisCash.FBS);
   const stakedBalance = useStakedBalanceOnBoardroom();
   const isOldBoardroomMember = boardroomVersion !== 'latest';
 
   const { onStake } = useStakeToBoardroom();
   const { onWithdraw } = useWithdrawFromBoardroom();
-  const { onRedeem } = useRedeemOnBoardroom('Redeem BAS for Boardroom Migration');
+  const { onRedeem } = useRedeemOnBoardroom('Redeem FBS for Boardroom Migration');
 
   const [onPresentDeposit, onDismissDeposit] = useModal(
     <DepositModal
@@ -49,7 +49,7 @@ const Stake: React.FC = () => {
         onStake(value);
         onDismissDeposit();
       }}
-      tokenName={'Basis Share'}
+      tokenName={'Fire Basis Share'}
     />,
   );
 
@@ -60,7 +60,7 @@ const Stake: React.FC = () => {
         onWithdraw(value);
         onDismissWithdraw();
       }}
-      tokenName={'Basis Share'}
+      tokenName={'Fire Basis Share'}
     />,
   );
 
@@ -73,14 +73,14 @@ const Stake: React.FC = () => {
               <TokenSymbol symbol="BAS" />
             </CardIcon>
             <Value value={getDisplayBalance(stakedBalance)} />
-            <Label text="Basis Share Staked" />
+            <Label text="Fire Basis Share Staked" />
           </StyledCardHeader>
           <StyledCardActions>
             {!isOldBoardroomMember && approveStatus !== ApprovalState.APPROVED ? (
               <Button
                 disabled={approveStatus !== ApprovalState.NOT_APPROVED}
                 onClick={approve}
-                text="Approve Basis Share"
+                text="Approve Fire Basis Share"
               />
             ) : isOldBoardroomMember ? (
               <>

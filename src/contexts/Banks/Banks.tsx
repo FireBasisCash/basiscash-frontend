@@ -6,17 +6,17 @@ import config, { bankDefinitions } from '../../config';
 
 const Banks: React.FC = ({ children }) => {
   const [banks, setBanks] = useState<Bank[]>([]);
-  const basisCash = useBasisCash();
+  const BasisCash = useBasisCash();
 
   const fetchPools = useCallback(async () => {
     const banks: Bank[] = [];
 
     for (const bankInfo of Object.values(bankDefinitions)) {
       if (bankInfo.finished) {
-        if (!basisCash.isUnlocked) continue;
+        if (!BasisCash.isUnlocked) continue;
 
         // only show pools staked by user
-        const balance = await basisCash.stakedBalanceOnBank(bankInfo.contract, basisCash.myAccount);
+        const balance = await BasisCash.stakedBalanceOnBank(bankInfo.contract, BasisCash.myAccount);
         if (balance.lte(0)) {
           continue;
         }
@@ -24,20 +24,21 @@ const Banks: React.FC = ({ children }) => {
       banks.push({
         ...bankInfo,
         address: config.deployments[bankInfo.contract].address,
-        depositToken: basisCash.externalTokens[bankInfo.depositTokenName],
-        earnToken: bankInfo.earnTokenName == 'BAC' ? basisCash.BAC : basisCash.BAS,
+        depositToken: BasisCash.externalTokens[bankInfo.depositTokenName],
+        earnToken: bankInfo.earnTokenName == 'FBC' ? BasisCash.FBC : BasisCash.FBS,
       });
     }
     banks.sort((a, b) => (a.sort > b.sort ? 1 : -1));
     setBanks(banks);
-  }, [basisCash, basisCash?.isUnlocked, setBanks]);
+    console.log(banks)
+  }, [BasisCash, BasisCash?.isUnlocked, setBanks]);
 
   useEffect(() => {
-    if (basisCash) {
+    if (BasisCash) {
       fetchPools()
         .catch(err => console.error(`Failed to fetch pools: ${err.stack}`));
     }
-  }, [basisCash, basisCash?.isUnlocked, fetchPools]);
+  }, [BasisCash, BasisCash?.isUnlocked, fetchPools]);
 
   return <Context.Provider value={{ banks }}>{children}</Context.Provider>;
 };

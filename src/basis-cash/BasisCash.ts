@@ -10,7 +10,7 @@ import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 
 /**
- * An API module of Basis Cash contracts.
+ * An API module of FBSis Cash contracts.
  * All contract-interacting domain logic should be defined in here.
  */
 export class BasisCash {
@@ -22,10 +22,11 @@ export class BasisCash {
   externalTokens: { [name: string]: ERC20 };
   boardroomVersionOfUser?: string;
 
-  bacDai: Contract;
-  BAC: ERC20;
-  BAS: ERC20;
-  BAB: ERC20;
+  FBCDai: Contract;
+  FBC: ERC20;
+  FBS: ERC20;
+  FBB: ERC20;
+  FBG: ERC20;
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -40,12 +41,13 @@ export class BasisCash {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal); // TODO: add decimal
     }
-    this.BAC = new ERC20(deployments.Cash.address, provider, 'BAC');
-    this.BAS = new ERC20(deployments.Share.address, provider, 'BAS');
-    this.BAB = new ERC20(deployments.Bond.address, provider, 'BAB');
+    this.FBC = new ERC20(deployments.Cash.address, provider, 'FBC');
+    this.FBS = new ERC20(deployments.Share.address, provider, 'FBS');
+    this.FBB = new ERC20(deployments.Bond.address, provider, 'FBB');
+    this.FBG = new ERC20(deployments.Governance.address, provider, 'FBG');
 
     // Uniswap V2 Pair
-    this.bacDai = new Contract(
+    this.FBCDai = new Contract(
       externalTokens['BAC_DAI-UNI-LPv2'][0],
       IUniswapV2PairABI,
       provider,
@@ -67,11 +69,11 @@ export class BasisCash {
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
-    const tokens = [this.BAC, this.BAS, this.BAB, ...Object.values(this.externalTokens)];
+    const tokens = [this.FBC, this.FBS, this.FBB, ...Object.values(this.externalTokens)];
     for (const token of tokens) {
       token.connect(this.signer);
     }
-    this.bacDai = this.bacDai.connect(this.signer);
+    this.FBCDai = this.FBCDai.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
     this.fetchBoardroomVersionOfUser()
       .then((version) => (this.boardroomVersionOfUser = version))
@@ -94,29 +96,29 @@ export class BasisCash {
   }
 
   /**
-   * @returns Basis Cash (BAC) stats from Uniswap.
-   * It may differ from the BAC price used on Treasury (which is calculated in TWAP)
+   * @returns FBSis Cash (FBC) stats from Uniswap.
+   * It may differ from the FBC price used on Treasury (which is calculated in TWAP)
    */
   async getCashStatFromUniswap(): Promise<TokenStat> {
-    const supply = await this.BAC.displayedTotalSupply();
+    const supply = await this.FBC.displayedTotalSupply();
     return {
-      priceInDAI: await this.getTokenPriceFromUniswap(this.BAC),
+      priceInDAI: await this.getTokenPriceFromUniswap(this.FBC),
       totalSupply: supply,
     };
   }
 
   /**
-   * @returns Estimated Basis Cash (BAC) price data,
+   * @returns Estimated FBSis Cash (FBC) price data,
    * calculated by 1-day Time-Weight Averaged Price (TWAP).
    */
   async getCashStatInEstimatedTWAP(): Promise<TokenStat> {
     const { SeigniorageOracle } = this.contracts;
 
     const expectedPrice = await SeigniorageOracle.expectedPrice(
-      this.BAC.address,
+      this.FBC.address,
       ethers.utils.parseEther('1'),
     );
-    const supply = await this.BAC.displayedTotalSupply();
+    const supply = await this.FBC.displayedTotalSupply();
 
     return {
       priceInDAI: getDisplayBalance(expectedPrice),
@@ -142,14 +144,14 @@ export class BasisCash {
 
     return {
       priceInDAI: getDisplayBalance(bondPrice),
-      totalSupply: await this.BAB.displayedTotalSupply(),
+      totalSupply: await this.FBB.displayedTotalSupply(),
     };
   }
 
   async getShareStat(): Promise<TokenStat> {
     return {
-      priceInDAI: await this.getTokenPriceFromUniswap(this.BAS),
-      totalSupply: await this.BAS.displayedTotalSupply(),
+      priceInDAI: await this.getTokenPriceFromUniswap(this.FBS),
+      totalSupply: await this.FBS.displayedTotalSupply(),
     };
   }
 
@@ -262,14 +264,14 @@ export class BasisCash {
     const balance1 = await Boardroom1.getShareOf(this.myAccount);
     if (balance1.gt(0)) {
       console.log(
-        `👀 The user is using Boardroom v1. (Staked ${getDisplayBalance(balance1)} BAS)`,
+        `👀 The user is using Boardroom v1. (Staked ${getDisplayBalance(balance1)} FBS)`,
       );
       return 'v1';
     }
     const balance2 = await Boardroom2.balanceOf(this.myAccount);
     if (balance2.gt(0)) {
       console.log(
-        `👀 The user is using Boardroom v2. (Staked ${getDisplayBalance(balance2)} BAS)`,
+        `👀 The user is using Boardroom v2. (Staked ${getDisplayBalance(balance2)} FBS)`,
       );
       return 'v2';
     }
@@ -299,7 +301,7 @@ export class BasisCash {
 
   async stakeShareToBoardroom(amount: string): Promise<TransactionResponse> {
     if (this.isOldBoardroomMember()) {
-      throw new Error("you're using old Boardroom. please withdraw and deposit the BAS again.");
+      throw new Error("you're using old Boardroom. please withdraw and deposit the FBS again.");
     }
     const Boardroom = this.currentBoardroom();
     return await Boardroom.stake(decimalToBalance(amount));
