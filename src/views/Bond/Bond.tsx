@@ -91,10 +91,10 @@ const Bond: React.FC = () => {
                   toTokenName="Basis Bond"
                   priceDesc={
                     !isBondPurchasable
-                      ? 'BAC is over $1'
+                      ? 'FBC is over $1'
                       : `${Math.floor(
                           100 / Number(bondStat.priceInUsdt) - 100,
-                        )}% return when BAC > $1`
+                        )}% return when FBC > $1`
                   }
                   onExchange={handleBuyBonds}
                   disabled={!bondStat || isBondRedeemable}
@@ -102,14 +102,14 @@ const Bond: React.FC = () => {
               </StyledCardWrapper>
               <StyledStatsWrapper>
                 <ExchangeStat
-                  tokenName="BAC"
+                  tokenName="FBC"
                   description="Last-Hour TWAP Price"
                   price={getDisplayBalance(cashPrice, 18, 2)}
                 />
                 <Spacer size="md" />
                 <ExchangeStat
-                  tokenName="BAB"
-                  description="Current Price: (BAC)^2"
+                  tokenName="FBB"
+                  description="Current Price: (FBC)^2"
                   price={bondStat?.priceInUsdt || '-'}
                 />
               </StyledStatsWrapper>
@@ -120,10 +120,10 @@ const Bond: React.FC = () => {
                   fromTokenName="Basis Bond"
                   toToken={basisCash.FBC}
                   toTokenName="Fire Basis Cash"
-                  priceDesc={`${getDisplayBalance(bondBalance)} BAB Available`}
+                  priceDesc={`${getDisplayBalance(bondBalance)} FBB Available`}
                   onExchange={handleRedeemBonds}
                   disabled={!bondStat || bondBalance.eq(0) || !isBondRedeemable}
-                  disabledDescription={!isBondRedeemable ? `Enabled when BAC > $${BOND_REDEEM_PRICE}` : null}
+                  disabledDescription={!isBondRedeemable ? `Enabled when FBC > $${BOND_REDEEM_PRICE}` : null}
                 />
               </StyledCardWrapper>
             </StyledBond>

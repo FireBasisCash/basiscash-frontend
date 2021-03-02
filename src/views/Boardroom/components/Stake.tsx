@@ -70,7 +70,7 @@ const Stake: React.FC = () => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol="BAS" />
+              <TokenSymbol symbol="FBS" />
             </CardIcon>
             <Value value={getDisplayBalance(stakedBalance)} />
             <Label text="Fire Basis Share Staked" />

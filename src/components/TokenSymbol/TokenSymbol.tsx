@@ -10,9 +10,9 @@ import USDCLogo from '../../assets/img/USDC.png';
 import USDTLogo from '../../assets/img/USDT.png';
 
 const logosBySymbol: {[title: string]: string} = {
-  'BAC': bacLogo,
-  'BAB': babLogo,
-  'BAS': basLogo,
+  // 'BAC': bacLogo,
+  // 'BAB': babLogo,
+  // 'BAS': basLogo,
   'FBC': bacLogo,
   'FBB': babLogo,
   'FBS': basLogo,
@@ -22,8 +22,6 @@ const logosBySymbol: {[title: string]: string} = {
   'SUSD': sUSDLogo,
   'USDC': USDCLogo,
   'USDT': USDTLogo,
-  'BAC_DAI-UNI-LPv2': bacLogo,
-  'BAS_DAI-UNI-LPv2': basLogo,
   'FBC_USDT-UNI-LPv2': basLogo,
   'FBS_USDT-UNI-LPv2': basLogo,
 };

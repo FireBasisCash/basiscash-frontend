@@ -107,7 +107,7 @@ const Boardroom: React.FC = () => {
               <Stat
                 icon="💵"
                 title={cashStat ? `$${cashStat.priceInUsdt}` : '-'}
-                description="BAC Price (TWAP)"
+                description="FBC Price (TWAP)"
               />
               <Stat
                 icon="🚀"
