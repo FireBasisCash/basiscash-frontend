@@ -14,13 +14,14 @@ const Home: React.FC = () => {
 
   const [{ cash, bond, share }, setStats] = useState<OverviewData>({});
   const fetchStats = useCallback(async () => {
-    const [cash, bond, share] = await Promise.all([
+    const [cash, share] = await Promise.all([
       basisCash.getCashStatFromUniswap(),
-      basisCash.getBondStat(),
+      // basisCash.getBondStat(),
       basisCash.getShareStat(),
     ]);
+
     if (Date.now() < config.bondLaunchesAt.getTime()) {
-      bond.priceInDAI = '-';
+      bond.priceInUsdt = '-';
     }
     setStats({ cash, bond, share });
   }, [basisCash, setStats]);
@@ -61,13 +62,13 @@ const Home: React.FC = () => {
           stat={share}
         />
         <Spacer size="lg" />
-        <HomeCard
+        {/* <HomeCard
           title="Basis Bond"
           symbol="BAB"
           color="#ECF25C"
           address={bondAddr}
           stat={bond}
-        />
+        /> */}
       </CardWrapper>
     </Page>
   );

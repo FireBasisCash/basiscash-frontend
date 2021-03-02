@@ -102,7 +102,7 @@ export class BasisCash {
   async getCashStatFromUniswap(): Promise<TokenStat> {
     const supply = await this.FBC.displayedTotalSupply();
     return {
-      priceInDAI: await this.getTokenPriceFromUniswap(this.FBC),
+      priceInUsdt: await this.getTokenPriceFromUniswap(this.FBC),
       totalSupply: supply,
     };
   }
@@ -121,7 +121,7 @@ export class BasisCash {
     const supply = await this.FBC.displayedTotalSupply();
 
     return {
-      priceInDAI: getDisplayBalance(expectedPrice),
+      priceInUsdt: getDisplayBalance(expectedPrice),
       totalSupply: supply,
     };
   }
@@ -143,14 +143,14 @@ export class BasisCash {
     const bondPrice = cashPrice.pow(2).div(decimals);
 
     return {
-      priceInDAI: getDisplayBalance(bondPrice),
+      priceInUsdt: getDisplayBalance(bondPrice),
       totalSupply: await this.FBB.displayedTotalSupply(),
     };
   }
 
   async getShareStat(): Promise<TokenStat> {
     return {
-      priceInDAI: await this.getTokenPriceFromUniswap(this.FBS),
+      priceInUsdt: await this.getTokenPriceFromUniswap(this.FBS),
       totalSupply: await this.FBS.displayedTotalSupply(),
     };
   }
@@ -159,16 +159,16 @@ export class BasisCash {
     await this.provider.ready;
 
     const { chainId } = this.config;
-    const { DAI } = this.config.externalTokens;
-
-    const dai = new Token(chainId, DAI[0], 18);
+    const { USDT } = this.config.externalTokens;
+    const usdt = new Token(chainId, USDT[0], 6);
     const token = new Token(chainId, tokenContract.address, 18);
 
     try {
-      const daiToToken = await Fetcher.fetchPairData(dai, token, this.provider);
-      const priceInDAI = new Route([daiToToken], token);
-      return priceInDAI.midPrice.toSignificant(3);
+      const usdtToToken = await Fetcher.fetchPairData(usdt, token, this.provider);
+      const priceInUsdt = new Route([usdtToToken], token);
+      return priceInUsdt.midPrice.toSignificant(3);
     } catch (err) {
+      
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
   }

@@ -34,7 +34,7 @@ const Boardroom: React.FC = () => {
   const cashStat = useCashPriceInEstimatedTWAP();
   const treasuryAmount = useTreasuryAmount();
   const scalingFactor = useMemo(
-    () => (cashStat ? Number(cashStat.priceInDAI).toFixed(2) : null),
+    () => (cashStat ? Number(cashStat.priceInUsdt).toFixed(2) : null),
     [cashStat],
   );
   const { prevAllocation, nextAllocation } = useTreasuryAllocationTimes();
@@ -106,7 +106,7 @@ const Boardroom: React.FC = () => {
               />
               <Stat
                 icon="💵"
-                title={cashStat ? `$${cashStat.priceInDAI}` : '-'}
+                title={cashStat ? `$${cashStat.priceInUsdt}` : '-'}
                 description="BAC Price (TWAP)"
               />
               <Stat

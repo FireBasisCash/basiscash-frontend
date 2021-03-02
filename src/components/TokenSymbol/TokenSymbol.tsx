@@ -24,6 +24,8 @@ const logosBySymbol: {[title: string]: string} = {
   'USDT': USDTLogo,
   'BAC_DAI-UNI-LPv2': bacLogo,
   'BAS_DAI-UNI-LPv2': basLogo,
+  'FBC_USDT-UNI-LPv2': basLogo,
+  'FBS_USDT-UNI-LPv2': basLogo,
 };
 
 type BasisLogoProps = {

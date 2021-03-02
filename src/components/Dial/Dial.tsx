@@ -55,7 +55,7 @@ const StyledInner = styled.div<StyledInnerProps>`
 `
 
 const StyledOuter = styled.div`
-  background-color: #000;
+  background-color: #ffffff;
   border-radius: 10000px;
   position: absolute;
   top: 0; right: 0; bottom: 0; left: 0;
