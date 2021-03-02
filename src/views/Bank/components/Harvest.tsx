@@ -16,13 +16,15 @@ import useHarvest from '../../../hooks/useHarvest';
 import { getDisplayBalance } from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Bank } from '../../../basis-cash';
+import useAcceleratorEarnings from '../../../hooks/useAcceleratorEarnings';
 
 interface HarvestProps {
   bank: Bank;
 }
 
 const Harvest: React.FC<HarvestProps> = ({ bank }) => {
-  const earnings = useEarnings(bank.contract);
+  const totalEarnings = useEarnings(bank.contract);
+  const acceleratorEarnings = useAcceleratorEarnings(bank.contract);
   const { onReward } = useHarvest(bank);
 
   const tokenName = bank.earnTokenName; //=== 'BAS' ? 'Share' : 'Cash';
@@ -34,11 +36,12 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.earnToken.symbol} />
             </CardIcon>
-            <Value value={getDisplayBalance(earnings)} />
+            <Value value={getDisplayBalance(totalEarnings)} />
+            <Value value={getDisplayBalance(acceleratorEarnings)} />
             <Label text={`${tokenName} Earned`} />
           </StyledCardHeader>
           <StyledCardActions>
-            <Button onClick={onReward} disabled={earnings.eq(0)} text="Settle"  />
+            <Button onClick={onReward} disabled={totalEarnings.eq(0)} text="Settle"  />
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>

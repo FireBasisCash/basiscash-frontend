@@ -24,8 +24,9 @@ const Banks: React.FC = ({ children }) => {
       banks.push({
         ...bankInfo,
         address: config.deployments[bankInfo.contract].address,
-        depositToken: BasisCash.externalTokens[bankInfo.depositTokenName],
-        earnToken: bankInfo.earnTokenName == 'FBC' ? BasisCash.FBC : BasisCash.FBS,
+        depositToken: tokenForTokenName(bankInfo.depositTokenName),
+        earnToken: tokenForTokenName(bankInfo.earnTokenName),
+        acceleratorToken: tokenForTokenName(bankInfo.acceleratorTokenName)
       });
     }
     banks.sort((a, b) => (a.sort > b.sort ? 1 : -1));
@@ -33,6 +34,18 @@ const Banks: React.FC = ({ children }) => {
     console.log(banks)
   }, [BasisCash, BasisCash?.isUnlocked, setBanks]);
 
+  const tokenForTokenName = (tokenName: string) => {
+    if (tokenName == 'FBG')
+      return BasisCash.FBG;
+    if (tokenName == 'FBC')
+      return BasisCash.FBC;
+    if (tokenName == 'FBS')
+      return BasisCash.FBS;
+    if (tokenName == 'FBG')
+      return BasisCash.FBG;
+    
+    return BasisCash.externalTokens[tokenName];
+  }
   useEffect(() => {
     if (BasisCash) {
       fetchPools()

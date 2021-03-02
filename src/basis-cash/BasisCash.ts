@@ -48,7 +48,7 @@ export class BasisCash {
 
     // Uniswap V2 Pair
     this.FBCDai = new Contract(
-      externalTokens['BAC_DAI-UNI-LPv2'][0],
+      externalTokens['FBC_USDT_LP'][0],
       IUniswapV2PairABI,
       provider,
     );
@@ -215,6 +215,43 @@ export class BasisCash {
       console.error(`Failed to call balanceOf() on pool ${pool.address}: ${err.stack}`);
       return BigNumber.from(0);
     }
+  }
+
+  async acceleratorEarnedFromBank(poolName: ContractName, account = this.myAccount): Promise<BigNumber> {
+    const pool = this.contracts[poolName];
+    try {
+      return await pool.acceleratorEarned(account);
+    } catch (err) {
+      console.error(`Failed to call acceleratorEarned() on pool ${pool.address}: ${err.stack}`);
+      return BigNumber.from(0);
+    }
+  }
+
+  async acceleratorStakedBalanceOnBank(
+    poolName: ContractName,
+    account = this.myAccount,
+  ): Promise<BigNumber> {
+    const pool = this.contracts[poolName];
+    try {
+      return await pool.balanceFBGOf(account);
+    } catch (err) {
+      console.error(`Failed to call balanceFBGOf() on pool ${pool.address}: ${err.stack}`);
+      return BigNumber.from(0);
+    }
+  }
+
+  async acceleratorStake(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
+
+    const pool = this.contracts[poolName];
+    const gas = await pool.estimateGas.stakeFBG(amount);
+    return await pool.stakeFBG(amount, this.gasOptions(gas));
+  }
+
+  async acceleratorUnstake(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
+
+    const pool = this.contracts[poolName];
+    const gas = await pool.estimateGas.withdrawFBG(amount);
+    return await pool.withdrawFBG(amount, this.gasOptions(gas));
   }
 
   /**
