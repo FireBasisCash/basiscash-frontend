@@ -19,6 +19,8 @@ const configurations: { [env: string]: Configuration } = {
       FBG:['0x1354A32f5cbe6E7F41e3d518F7c682a6343018EE', 18],
       'BAC_DAI-UNI-LPv2': ['0xd4405F0704621DBe9d4dEA60E128E0C3b26bddbD', 18],
       'BAS_DAI-UNI-LPv2': ['0x0379dA7a5895D13037B6937b109fA8607a659ADF', 18],
+      'FBS_USDT-UNI-LPv2':['0x2F5684996808A17CC5C1C95495504D599f62262d',18],
+      'FBC_USDT-UNI-LPv2':['0xaB707042f31AfeD5FDF440D9f2C2Bba45F855844',18]
     },
     baseLaunchDate: new Date('2020-11-26T00:00:00Z'),
     bondLaunchesAt: new Date('2020-12-03T15:00:00Z'),
@@ -40,6 +42,8 @@ const configurations: { [env: string]: Configuration } = {
       USDT: ['0xdAC17F958D2ee523a2206206994597C13D831ec7', 6],
       'BAC_DAI-UNI-LPv2': ['0xd4405F0704621DBe9d4dEA60E128E0C3b26bddbD', 18],
       'BAS_DAI-UNI-LPv2': ['0x0379dA7a5895D13037B6937b109fA8607a659ADF', 18],
+      'FBS_USDT-UNI-LPv2':['0x2F5684996808A17CC5C1C95495504D599f62262d',18],
+      'FBC_USDT-UNI-LPv2':['0xaB707042f31AfeD5FDF440D9f2C2Bba45F855844',18]
     },
     baseLaunchDate: new Date('2020-11-29T23:00:00Z'),
     bondLaunchesAt: new Date('2020-12-05T00:00:00Z'),
