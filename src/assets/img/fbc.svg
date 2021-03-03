@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118px" height="118px" viewBox="0 0 118 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/logo_red@2x</title>
+    <defs>
+        <linearGradient x1="57.0771141%" y1="150.938564%" x2="71.106201%" y2="-47.4174233%" id="linearGradient-1">
+            <stop stop-color="#FA6E4E" offset="0%"></stop>
+            <stop stop-color="#D77953" offset="0%"></stop>
+            <stop stop-color="#C91A1A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="52.6367592%" y1="150.938564%" x2="57.8636529%" y2="-47.4174233%" id="linearGradient-2">
+            <stop stop-color="#FA6E4E" offset="0%"></stop>
+            <stop stop-color="#D77953" offset="0%"></stop>
+            <stop stop-color="#C91A1A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="51.3654769%" y1="150.938564%" x2="54.0722856%" y2="-47.4174233%" id="linearGradient-3">
+            <stop stop-color="#FA6E4E" offset="0%"></stop>
+            <stop stop-color="#D77953" offset="0%"></stop>
+            <stop stop-color="#C91A1A" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="59.3000268%" y1="150.938564%" x2="77.7356323%" y2="-47.4174233%" id="linearGradient-4">
+            <stop stop-color="#FA6E4E" offset="0%"></stop>
+            <stop stop-color="#D77953" offset="0%"></stop>
+            <stop stop-color="#C91A1A" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icons/logo_red" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="椭圆形" stroke="#F1F1F1" fill="#FFFFFF" cx="59" cy="59" r="57.5"></circle>
+        <g id="编组" transform="translate(22.000000, 12.000000)">
+            <rect id="矩形" x="0" y="0" width="73.4693878" height="89.7236771"></rect>
+            <rect id="矩形" fill="url(#linearGradient-1)" x="10.4027452" y="40.3106375" width="5.85154416" height="30.5580639"></rect>
+            <rect id="矩形" fill="url(#linearGradient-2)" x="19.2450786" y="26.6570345" width="5.85154416" height="50.0632111"></rect>
+            <rect id="矩形" fill="url(#linearGradient-3)" x="28.087412" y="13.653603" width="5.85154416" height="69.5683583"></rect>
+            <rect id="矩形" fill="url(#linearGradient-4)" x="36.9297453" y="57.86527" width="5.85154416" height="26.6570345"></rect>
+            <rect id="矩形" fill="url(#linearGradient-2)" x="45.7720787" y="30.5580639" width="5.85154416" height="50.0632111"></rect>
+            <rect id="矩形" fill="url(#linearGradient-1)" x="54.6144121" y="44.8618385" width="5.85154416" height="30.5580639"></rect>
+        </g>
+        <path d="M69.4309278,101.618557 C76.8350515,101.618557 83.0639175,98.5628866 88,92.4515464 L80.9484536,85.4 L79.5381443,85.4 C75.542268,90.2185567 72.4865979,91.7463918 66.8453608,91.7463918 L56.385567,91.7463918 C48.3938144,91.7463918 42.2824742,85.1649485 42.2824742,76.4680412 L42.2824742,42.1505155 C42.2824742,33.4536082 48.3938144,26.8721649 56.385567,26.8721649 L66.4927835,26.8721649 C72.1340206,26.8721649 75.1896907,28.4 79.185567,33.2185567 L80.5958763,33.2185567 L87.6474227,26.1670103 C82.7113402,20.0556701 76.4824742,17 69.0783505,17 L54.9752577,17 C41.8123711,17 31,27.6948454 31,40.7402062 L31,77.8783505 C31,90.9237113 41.8123711,101.618557 54.9752577,101.618557 L69.4309278,101.618557 Z" id="C" fill="#D2B3B3" fill-rule="nonzero" opacity="0.261852"></path>
+    </g>
+</svg>

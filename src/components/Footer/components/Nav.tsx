@@ -18,7 +18,9 @@ const Nav: React.FC = () => {
 
 const StyledNav = styled.nav`
   align-items: center;
-  display: flex;
+  max-width: 100%;
+  display: block;
+  text-align: center;
 `
 
 const StyledLink = styled.a`
@@ -26,6 +28,7 @@ const StyledLink = styled.a`
   padding-left: ${props => props.theme.spacing[3]}px;
   padding-right: ${props => props.theme.spacing[3]}px;
   text-decoration: none;
+  display: inline-block;
   &:hover {
     color: ${props => props.theme.color.grey[500]};
   }

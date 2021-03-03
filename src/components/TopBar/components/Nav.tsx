@@ -18,6 +18,8 @@ const Nav: React.FC = () => {
 const StyledNav = styled.nav`
   align-items: center;
   display: flex;
+  margin-bottom: 10px 0 10px 0;
+  display: block;
 `
 
 const StyledLink = styled(NavLink)`
@@ -26,12 +28,13 @@ const StyledLink = styled(NavLink)`
   padding-left: ${props => props.theme.spacing[3]}px;
   padding-right: ${props => props.theme.spacing[3]}px;
   text-decoration: none;
+  display: inline-block;
   &:hover {
     color: ${props => props.theme.color.grey[500]};
   }
   &.active {
     color: ${props => props.theme.color.primary.main};
-  }
+  };
 `
 const StyledLink2 = styled.a`
   color: ${props => props.theme.color.grey[400]};

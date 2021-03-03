@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118px" height="118px" viewBox="0 0 118 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/logo_green@2x</title>
+    <defs>
+        <linearGradient x1="106.972982%" y1="-183.614076%" x2="17.2135832%" y2="216.990715%" id="linearGradient-1">
+            <stop stop-color="#375C10" offset="0%"></stop>
+            <stop stop-color="#63F766" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="78.1416204%" y1="-21.4168%" x2="52%" y2="131.549239%" id="linearGradient-2">
+            <stop stop-color="#375C10" offset="0%"></stop>
+            <stop stop-color="#63F766" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="60.1309833%" y1="-21.4168%" x2="50.72%" y2="131.549239%" id="linearGradient-3">
+            <stop stop-color="#375C10" offset="0%"></stop>
+            <stop stop-color="#63F766" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="55.319777%" y1="-21.4168%" x2="50.3780718%" y2="131.549239%" id="linearGradient-4">
+            <stop stop-color="#375C10" offset="0%"></stop>
+            <stop stop-color="#63F766" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="87.4666544%" y1="-21.4168%" x2="52.6627219%" y2="131.549239%" id="linearGradient-5">
+            <stop stop-color="#375C10" offset="0%"></stop>
+            <stop stop-color="#63F766" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="icons/logo_green" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="椭圆形" stroke="#F1F1F1" fill="#FFFFFF" cx="59" cy="59" r="57.5"></circle>
+        <path d="M65.2461538,99 C77.1807692,99 88,88.3333333 88,76.5555556 L88,54.3333333 L60.1153846,54.3333333 L60.1153846,63.6666667 L77.2923077,63.6666667 L77.2923077,75.2222222 C77.2923077,83.1111111 71.1576923,89.6666667 63.9076923,89.6666667 L54.0923077,89.6666667 C46.5076923,89.6666667 40.7076923,83.4444444 40.7076923,75.2222222 L40.7076923,42.7777778 C40.7076923,34.5555556 46.5076923,28.3333333 54.0923077,28.3333333 L65.2461538,28.3333333 C70.6,28.3333333 73.5,29.7777778 77.2923077,34.3333333 L78.6307692,34.3333333 L85.3230769,27.6666667 C80.6384615,21.8888889 74.7269231,19 67.7,19 L52.7538462,19 C40.2615385,19 30,29.1111111 30,41.4444444 L30,76.5555556 C30,88.8888889 40.2615385,99 52.7538462,99 L65.2461538,99 Z" id="FBG" fill="url(#linearGradient-1)" opacity="0.138472784"></path>
+        <g id="编组" transform="translate(24.000000, 13.849558)">
+            <rect id="矩形" x="0" y="0.150442478" width="73" height="89"></rect>
+            <rect id="矩形" fill="url(#linearGradient-2)" x="10" y="40.1504425" width="6" height="30"></rect>
+            <rect id="矩形" fill="url(#linearGradient-3)" x="19" y="26.1504425" width="6" height="50"></rect>
+            <rect id="矩形" fill="url(#linearGradient-4)" x="28" y="13.1504425" width="6" height="69"></rect>
+            <rect id="矩形" fill="url(#linearGradient-5)" x="37" y="57.1504425" width="6" height="26"></rect>
+            <rect id="矩形" fill="url(#linearGradient-3)" x="45" y="30.1504425" width="6" height="50"></rect>
+            <rect id="矩形" fill="url(#linearGradient-2)" x="54" y="45.1504425" width="6" height="30"></rect>
+        </g>
+    </g>
+</svg>
