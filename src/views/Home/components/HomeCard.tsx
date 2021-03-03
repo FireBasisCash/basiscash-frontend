@@ -3,7 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import Label from '../../../components/Label';
 import { TokenStat } from '../../../basis-cash/types';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import TokenSymbol from '../../../components/TokenSymbol';
+import HomeTokenSymbol from '../../../components/TokenSymbol/HomeTokenSymbol';
 import { commify } from 'ethers/lib/utils';
 import config from '../../../config';
 
@@ -29,7 +29,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
     <Wrapper>
       <StyledCards>
         <CardHeader>{title}</CardHeader>
-        <TokenSymbol symbol={symbol} />
+        <HomeTokenSymbol symbol={symbol} />
         <CardText>
           <CardSection>
             <Label text="Current Price" color={color} />
