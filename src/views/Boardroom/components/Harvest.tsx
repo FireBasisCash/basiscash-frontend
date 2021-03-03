@@ -22,7 +22,7 @@ const Harvest: React.FC = ({}) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol="BAC" />
+              <TokenSymbol symbol="FBC" />
             </CardIcon>
             <Value value={getDisplayBalance(earnings)} />
             <Label text="Fire Basis Cash Earned" />
