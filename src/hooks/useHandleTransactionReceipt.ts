@@ -12,8 +12,6 @@ function useHandleTransactionReceipt(): (
   
   return useCallback(
     (promise: Promise<TransactionResponse>, summary: string) => {
-
-      console.log(promise);
       promise
         .then((tx) => addTransaction(tx, { summary }))
         .catch((err) => {

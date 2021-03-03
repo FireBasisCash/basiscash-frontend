@@ -30,3 +30,9 @@ export type TreasuryAllocationTime = {
   prevAllocation: Date;
   nextAllocation: Date;
 }
+
+export type Web3TXResponse = {
+  error:Error,
+  summary:string,
+  data:any
+}

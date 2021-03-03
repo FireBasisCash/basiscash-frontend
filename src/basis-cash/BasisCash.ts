@@ -11,8 +11,7 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import Web3Object from 'web3';
 import { Web3Contract } from './web3Contract';
 import { resolve } from 'path';
-
-
+import { addPopup } from '../state/application/actions';
 
 /**
  * An API module of FBSis Cash contracts.
@@ -291,71 +290,48 @@ export class BasisCash {
  * @param amount Number of tokens with decimals applied. (e.g. 1.45 DAI * 10^18)
  * @returns {string} Transaction hash
  */
-  async stakeETH(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
-    // debugger
-    // const pool = this.contracts[poolName];
-    // const gas = await pool.estimateGas.stake(amount);
-    // return await pool.stake(amount, this.gasOptions(gas));
+  async stakeETH(poolName: ContractName, summary: string, amount: BigNumber) {
 
     const contract = this.web3Contracts[poolName].contract;
     const value = amount.toString();//this.web3.utils.toWei(valueString)
-    return await contract.methods
+    await contract.methods
       .stake()
       .send({
         to: contract.options.address,
         from: this.myAccount,
         value: value
       })
-      .once('transactionHash', (data: any) => {
-        console.log("transactionHash:" + data);
+      .once('transactionHash', (txHash: string) => {
+        console.log("transactionHash:" + txHash);
         resolve();
       })
       .once('receipt', (data: any) => {
-        console.log("receipt" + JSON.stringify(data));
+        console.log(JSON.stringify(data));
+        let content = {
+          txn: {
+            hash: data.transactionHash,
+            success: true,
+            summary: summary
+          }
+        }
+        addPopup({ content });
+        // onReceipt(data,summary);
+        //dispatch(addTransaction({ hash, from: this.myAccount, this.config.  , approval, summary }));
       })
-      .on('error', (error: Error) => {
-        console.log(error);
+      .on('error', (err: Error) => {
+        // onError(err, summary);
+        let content = {
+          error: {
+            message: err.message,
+            stack: err.stack
+          }
+        }
+        addPopup({ content });
       });
 
-    /**
-     *     
-     * transactionIndex: number;
-    transactionHash: string;
-    blockHash: string;
-    blockNumber: number;
-    address: string;
-     */
-    // const contract = this.web3Contracts[poolName].contract;
-    // const value = amount.toString();//this.web3.utils.toWei(valueString)
-    // let p = new Promise<TransactionResponse>(() => {
-    //     contract.methods
-    //       .stake()
-    //       .send({
-    //         to: contract.options.address,
-    //         from: this.myAccount,
-    //         value: value
-    //       })
-    //       .once('transactionHash',(txHash:string)  => {
-    //         console.log("transactionHash:"+txHash);
-    //         result:TransactionResponse = {
-    //           hash:txHash,
-    //           confirmations: 0,
-    //           from: this.myAccount
-    //         }
-    //         resolve(result);
-    //       })
-    //       .once('receipt', (error: Error, event: any) => {
-    //         console.log("transactionHash:"+event);
-    //       })
-    //       .on('error', (error: Error) => {
-    //         console.log(error);
-    //       });
-    //   });
-
-    //   return p;
   }
 
-  async unstakeETH(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
+  async unstakeETH(poolName: ContractName, summary: string, amount: BigNumber): Promise<TransactionResponse> {
     // const pool = this.contracts[poolName];
     // const gas = await pool.estimateGas.withdraw(amount);
     // return await pool.withdraw(amount, this.gasOptions(gas));
@@ -374,13 +350,27 @@ export class BasisCash {
         value: value
       })
       .once('transactionHash', (txHash: string) => {
-        console.log("transactionHash");
+        console.log("transactionHash:" + txHash);
       })
-      .once('receipt', () => {
-        console.log("receipt");
+      .once('receipt', (data: any) => {
+        console.log(JSON.stringify(data));
+        let content = {
+          txn: {
+            hash: data.transactionHash,
+            success: true,
+            summary: summary
+          }
+        }
+        addPopup({ content });
       })
-      .on('error', (error: Error) => {
-        console.log(error);
+      .on('error', (err: Error) => {
+        let content = {
+          error: {
+            message: err.message,
+            stack: err.stack
+          }
+        }
+        addPopup({ content });
       });
 
   }
