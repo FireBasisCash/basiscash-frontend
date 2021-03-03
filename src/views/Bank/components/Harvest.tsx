@@ -25,6 +25,7 @@ interface HarvestProps {
 const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const totalEarnings = useEarnings(bank.contract);
   const acceleratorEarnings = useAcceleratorEarnings(bank.contract);
+  const tokenEarnings = totalEarnings.sub(acceleratorEarnings);
   const { onReward } = useHarvest(bank);
 
   const tokenName = bank.earnTokenName; //=== 'BAS' ? 'Share' : 'Cash';
@@ -38,6 +39,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             </CardIcon>
             <Value value={getDisplayBalance(totalEarnings)} />
             <Value value={getDisplayBalance(acceleratorEarnings)} />
+            <Value value={getDisplayBalance(tokenEarnings)} />
             <Label text={`${tokenName} Earned`} />
           </StyledCardHeader>
           <StyledCardActions>
