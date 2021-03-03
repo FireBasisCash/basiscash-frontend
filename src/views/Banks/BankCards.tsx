@@ -111,20 +111,6 @@ const BankCard: React.FC<BankCardProps> = ({ bank }) => {
 };
 
 const StyledCardAccent = styled.div`
-  background: linear-gradient(
-    45deg,
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 154, 0, 1) 10%,
-    rgba(208, 222, 33, 1) 20%,
-    rgba(79, 220, 74, 1) 30%,
-    rgba(63, 218, 216, 1) 40%,
-    rgba(47, 201, 226, 1) 50%,
-    rgba(28, 127, 238, 1) 60%,
-    rgba(95, 21, 242, 1) 70%,
-    rgba(186, 12, 248, 1) 80%,
-    rgba(251, 7, 217, 1) 90%,
-    rgba(255, 0, 0, 1) 100%
-  );
   border-radius: 12px;
   filter: blur(4px);
   position: absolute;
@@ -136,20 +122,6 @@ const StyledCardAccent = styled.div`
 `;
 
 const StyledCardSuperAccent = styled.div`
-  background: linear-gradient(
-    45deg,
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 154, 0, 1) 10%,
-    rgba(208, 222, 33, 1) 20%,
-    rgba(79, 220, 74, 1) 30%,
-    rgba(63, 218, 216, 1) 40%,
-    rgba(47, 201, 226, 1) 50%,
-    rgba(28, 127, 238, 1) 60%,
-    rgba(95, 21, 242, 1) 70%,
-    rgba(186, 12, 248, 1) 80%,
-    rgba(251, 7, 217, 1) 90%,
-    rgba(255, 0, 0, 1) 100%
-  );
   border-radius: 12px;
   filter: blur(8px);
   position: absolute;
@@ -196,7 +168,7 @@ const StyledCardWrapper = styled.div`
 `;
 
 const StyledTitle = styled.h4`
-  color: ${(props) => props.theme.color.grey[200]};
+  color: #031D5B;
   font-size: 24px;
   font-weight: 700;
   text-align: center;
@@ -222,7 +194,7 @@ const StyledDetails = styled.div`
 `;
 
 const StyledDetail = styled.div`
-  color: ${(props) => props.theme.color.grey[300]};
+  color: #5B6C94;
 `;
 
 const StyledInactiveNoticeContainer = styled.div`

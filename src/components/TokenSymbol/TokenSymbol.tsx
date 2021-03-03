@@ -15,7 +15,7 @@ const logosBySymbol: {[title: string]: string} = {
   'FBG_USDT_LP': fbcLogo,
   'FBS_USDT_LP': fbcLogo,
   'HT': fbcLogo,
-  
+
 };
 
 type BasisLogoProps = {
@@ -33,7 +33,6 @@ const TokenSymbol: React.FC<BasisLogoProps> = ({ symbol, size = 36 }) => {
       alt={`${symbol} Logo`}
       width={size}
       height={size}
-      style={{width: 66,height: 66,background: '#1FDB84',borderRadius: 6,opacity: 0.1}}
     />
   )
 };

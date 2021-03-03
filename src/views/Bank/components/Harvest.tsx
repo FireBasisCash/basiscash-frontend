@@ -28,7 +28,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const tokenEarnings = totalEarnings.sub(acceleratorEarnings);
   const { onReward } = useHarvest(bank);
 
-  const tokenName = bank.earnTokenName; //=== 'BAS' ? 'Share' : 'Cash';
+  const tokenName = bank.earnTokenName; // 'FBS' ? 'Share' : 'Cash'
   return (
     <Card>
       <CardContent>
@@ -37,19 +37,49 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.earnToken.symbol} />
             </CardIcon>
-            <Value value={getDisplayBalance(totalEarnings)} />
-            {bank.accelerator?(<Value value={getDisplayBalance(acceleratorEarnings)} />):(<div></div>)}
-            {bank.accelerator?(<Value value={getDisplayBalance(tokenEarnings)} />):(<div></div>)}
-            <Label text={`${tokenName} Earned`} />
+            <StyledPriceLabel>{'$'+getDisplayBalance(totalEarnings, 18, 2)} </StyledPriceLabel>
+            <DescribePriceLabel>{`Gross Earnings`}</DescribePriceLabel>
+            {bank.accelerator?(
+              <div>
+                <StyledPriceLabel>{'$' + getDisplayBalance(tokenEarnings, 18, 2)}</StyledPriceLabel>
+                <DescribePriceLabel>{`${tokenName} Income`}</DescribePriceLabel>
+              </div>
+            ):(<div></div>)}
+            {bank.accelerator?(
+              <div>
+                <StyledPriceLabel>{'$' + getDisplayBalance(acceleratorEarnings, 18, 2)}</StyledPriceLabel>
+                <DescribePriceLabel>{`Accelerated Income`}</DescribePriceLabel>
+              </div>
+            ):(<div></div>)}
           </StyledCardHeader>
           <StyledCardActions>
-            <Button onClick={onReward} disabled={totalEarnings.eq(0)} text="Settle"  />
+            <Button size="sm" onClick={onReward} disabled={totalEarnings.eq(0)} text="Settle" />
           </StyledCardActions>
         </StyledCardContentInner>
       </CardContent>
     </Card>
   );
 };
+
+const StyledPriceLabel = styled.div`
+  height: 38px;
+  font-size: 32px;
+  font-family: Rubik-Bold, Rubik;
+  font-weight: bold;
+  color: #313A5A;
+  line-height: 38px;
+  text-align: center;
+`;
+
+const DescribePriceLabel = styled.div`
+  height: 28px;
+  font-size: 16px;
+  font-family: Rubik-Regular,Rubik;
+  font-weight: 400;
+  color: #313A5A;
+  line-height: 28px;
+  text-align: center;
+`;
 
 const StyledCardHeader = styled.div`
   align-items: center;

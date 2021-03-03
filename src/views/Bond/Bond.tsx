@@ -56,7 +56,7 @@ const Bond: React.FC = () => {
       <Switch>
         <Page>
           <PageHeader
-            icon={'🏦'}
+            // icon={'🏦'}
             title="Buy & Redeem Bonds"
             subtitle="Earn premiums upon redemption"
           />
@@ -76,7 +76,7 @@ const Bond: React.FC = () => {
           <>
             <Route exact path={path}>
               <PageHeader
-                icon={'🏦'}
+                // icon={'🏦'}
                 title="Buy & Redeem Bonds"
                 subtitle="Earn premiums upon redemption"
               />

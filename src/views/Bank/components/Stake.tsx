@@ -70,8 +70,8 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.depositToken.symbol} size={54} />
             </CardIcon>
-            <Value value={getDisplayBalance(stakedBalance, bank.depositToken.decimal)} />
-            <Label text={`${bank.depositTokenName} Staked`} />
+            <StyledPriceLabel>{'$'+getDisplayBalance(stakedBalance, bank.depositToken.decimal, 2)} </StyledPriceLabel>
+            <DescribePriceLabel>{`${bank.depositTokenName} Staked`}</DescribePriceLabel>
           </StyledCardHeader>
           <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED ? (
@@ -111,6 +111,26 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
     </Card>
   );
 };
+
+const StyledPriceLabel = styled.div`
+  height: 38px;
+  font-size: 32px;
+  font-family: Rubik-Bold, Rubik;
+  font-weight: bold;
+  color: #313A5A;
+  line-height: 38px;
+  text-align: center;
+`;
+
+const DescribePriceLabel = styled.div`
+  height: 28px;
+  font-size: 16px;
+  font-family: Rubik-Regular,Rubik;
+  font-weight: 400;
+  color: #313A5A;
+  line-height: 28px;
+  text-align: center;
+`;
 
 const StyledCardHeader = styled.div`
   align-items: center;

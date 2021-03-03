@@ -54,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
     case 'md':
     default:
       buttonPadding = spacing[4]
-      buttonSize = 56
+      buttonSize = 38
       fontSize = 16
   }
 

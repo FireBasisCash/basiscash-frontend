@@ -85,11 +85,11 @@ const StyledValue = styled.span`
 `;
 
 const CardText = styled.div`
-  margin-left: 80px;
+  margin-left: 142px;
 `;
 
 const CardSection = styled.div`
-  margin-bottom: 8px;
+  margin-bottom: 16px;
   &:last-child {
     margin-bottom: 0;
   }

@@ -14,14 +14,21 @@ const Banks: React.FC = () => {
   const { path } = useRouteMatch();
   const { account, connect } = useWallet();
 
+  let title = "Pick a Pool.";
+  let subTitle = "Earn Fire Basis Shares by providing liquidity";
+  if (path == '/fbc') {
+    title = "Pick a Pool.";
+    subTitle = "Earn Fire Basis Cash by providing liquidity";
+  }
+
   return (
     <Switch>
       <Page>
         <Route exact path={path}>
           <PageHeader
             icon={imgBank}
-            title="Pick a Pool."
-            subtitle="Earn Fire Basis Shares by providing liquidity"
+            title={title}
+            subtitle={subTitle}
           />
           {!!account ? (
             <BankCards />

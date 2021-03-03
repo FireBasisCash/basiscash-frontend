@@ -15,6 +15,8 @@ import { Bank as BankEntity } from '../../basis-cash';
 import Accelerator from './components/Accelerator';
 import StakeETH from './components/StakeETH';
 
+import imgBank from '../../assets/img/img_bank.png';
+
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
 
@@ -28,7 +30,7 @@ const Bank: React.FC = () => {
   return account && bank ? (
     <>
       <PageHeader
-        icon="🏦"
+        // icon="🏦"
         subtitle={`Deposit ${bank?.depositTokenName} and earn ${bank?.earnTokenName}`}
         title={bank?.name}
       />
@@ -84,7 +86,7 @@ const BankNotFound = () => {
   return (
     <Center>
       <PageHeader
-        icon="🏚"
+        icon={imgBank}
         title="Not Found"
         subtitle="You've hit a bank just robbed by unicorns."
       />
@@ -105,6 +107,7 @@ const StyledBank = styled.div`
   align-items: center;
   display: flex;
   flex-direction: column;
+  width: 80%;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -122,7 +125,8 @@ const StyledLink = styled.a`
 
 const StyledCardsWrapper = styled.div`
   display: flex;
-  width: 600px;
+  max-width: 1200px;
+  width: 100%;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;

@@ -73,8 +73,10 @@ const Accelerator: React.FC<AcceleratorProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.acceleratorToken.symbol} size={54} />
             </CardIcon>
-            <Value value={getDisplayBalance(stakedBalance, bank.acceleratorToken.decimal)} />
-            <Label text={`${bank.acceleratorTokenName} Staked`} />
+
+            <StyledPriceLabel>{'$'+getDisplayBalance(stakedBalance, bank.acceleratorToken.decimal, 2)} </StyledPriceLabel>
+            <DescribePriceLabel>{`${bank.acceleratorTokenName} Staked`}</DescribePriceLabel>
+
           </StyledCardHeader>
           <StyledCardActions>
             {approveStatus !== ApprovalState.APPROVED ? (
@@ -114,6 +116,26 @@ const Accelerator: React.FC<AcceleratorProps> = ({ bank }) => {
     </Card>
   );
 };
+
+const StyledPriceLabel = styled.div`
+  height: 38px;
+  font-size: 32px;
+  font-family: Rubik-Bold, Rubik;
+  font-weight: bold;
+  color: #313A5A;
+  line-height: 38px;
+  text-align: center;
+`;
+
+const DescribePriceLabel = styled.div`
+  height: 28px;
+  font-size: 16px;
+  font-family: Rubik-Regular,Rubik;
+  font-weight: 400;
+  color: #313A5A;
+  line-height: 28px;
+  text-align: center;
+`;
 
 const StyledCardHeader = styled.div`
   align-items: center;
