@@ -3,6 +3,7 @@ export const black = '#000'
 
 export const green = {
   500: '#1FDB84',
+  600: '#10c572'
 }
 
 export const purple = {
@@ -20,7 +21,7 @@ export const red = {
 export const grey = {
   100: '#f5f5f5',
   200: '#eeeeee',
-  300: '#e0e0e0',
+  300: '#031D5B',
   400: '#ffffff',
   500: '#9e9e9e',
   600: '#031D5B', 
@@ -32,5 +33,5 @@ export const grey = {
 export const bg = '#000000';
 
 export const teal = {
-  200: '#64ffda'
+  200: '#031D5B'
 }
