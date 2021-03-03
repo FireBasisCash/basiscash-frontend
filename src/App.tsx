@@ -27,6 +27,12 @@ const App: React.FC = () => {
           <Route path="/" exact>
             <Home />
           </Route>
+          <Route path="/fbc">
+            <Banks />
+          </Route>
+          <Route path="/fbs">
+            <Banks />
+          </Route>
           <Route path="/bank">
             <Banks />
           </Route>

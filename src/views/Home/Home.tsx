@@ -40,7 +40,6 @@ const Home: React.FC = () => {
   return (
     <Page>
       <PageHeader
-        icon="👋"
         subtitle="Buy, sell, and provide liquidity for Fire Basis Cash and Fire Basis Shares on Uniswap"
         title="Welcome to Fire Basis Cash!"
       />

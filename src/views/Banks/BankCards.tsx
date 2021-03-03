@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { Bank } from '../../basis-cash';
@@ -12,10 +13,16 @@ import Notice from '../../components/Notice';
 
 const BankCards: React.FC = () => {
   const [banks] = useBanks();
+  const { path } = useRouteMatch();
 
-  const activeBanks = banks.filter((bank) => !bank.finished);
-  console.log(activeBanks);
-  const inactiveBanks = banks.filter((bank) => bank.finished);
+  var banksTmp;
+  if (path == '/fbc') {
+    banksTmp = banks.filter((bank) => bank.earnTokenName == 'FBC');
+  } else {
+    banksTmp = banks.filter((bank) => bank.earnTokenName == 'FBS');
+  }
+  const activeBanks = banksTmp.filter((bank) => !bank.finished);
+  const inactiveBanks = banksTmp.filter((bank) => bank.finished);
 
   let finishedFirstRow = false;
   const inactiveRows = inactiveBanks.reduce<Bank[][]>(

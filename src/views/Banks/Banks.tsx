@@ -8,6 +8,8 @@ import { useWallet } from 'use-wallet';
 import Button from '../../components/Button';
 import styled from 'styled-components';
 
+import imgBank from '../../assets/img/img_bank.png';
+
 const Banks: React.FC = () => {
   const { path } = useRouteMatch();
   const { account, connect } = useWallet();
@@ -17,7 +19,7 @@ const Banks: React.FC = () => {
       <Page>
         <Route exact path={path}>
           <PageHeader
-            icon={'🏦'}
+            icon={imgBank}
             title="Pick a Pool."
             subtitle="Earn Fire Basis Shares by providing liquidity"
           />

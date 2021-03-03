@@ -9,7 +9,9 @@ const logosBySymbol: {[title: string]: string} = {
   'FBB': babLogo,
   'FBS': basLogo,
   'FBG': basLogo,
+  "USDT": basLogo,
   'FBC_USDT_LP': bacLogo,
+  'FBG_USDT_LP': bacLogo,
   'FBS_USDT_LP': basLogo,
 };
 

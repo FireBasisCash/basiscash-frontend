@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface PageHeaderProps {
-  icon: React.ReactNode,
+  // icon: React.ReactNode,
+  icon?: string,
   subtitle?: string,
   title?: string,
 }
@@ -10,7 +11,7 @@ interface PageHeaderProps {
 const PageHeader: React.FC<PageHeaderProps> = ({ icon, subtitle, title }) => {
   return (
     <StyledPageHeader>
-      <StyledIcon>{icon}</StyledIcon>
+      {icon?<StyledImg src={icon}></StyledImg>:<div></div>}
       <StyledTitle>{title}</StyledTitle>
       <StyledSubtitle>{subtitle}</StyledSubtitle>
     </StyledPageHeader>
@@ -28,12 +29,9 @@ const StyledPageHeader = styled.div`
   margin: 0 auto;
 `
 
-const StyledIcon = styled.div`
-  font-size: 96px;
-  height: 96px;
-  line-height: 96px;
-  text-align: center;
-  width: 96px;
+const StyledImg = styled.img`
+  width: 50%;
+  max-width: 375px;
 `
 
 const StyledTitle = styled.h1`

@@ -22,18 +22,18 @@ const Button: React.FC<ButtonProps> = ({
   size,
   text,
   to,
-  variant,
+  variant
 }) => {
   const { color, spacing } = useContext(ThemeContext)
 
   let buttonColor: string
   switch (variant) {
     case 'secondary':
-      buttonColor = color.teal[200]
+      buttonColor = color.white
       break
     case 'default':
     default:
-      buttonColor = color.primary.main
+      buttonColor = color.white
   }
 
   let boxShadow: string
@@ -94,11 +94,11 @@ interface StyledButtonProps {
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
+  box-shadow: 0px 8px 34px 0px rgba(31, 219, 132, 0.6);
+  border-radius: 5px 0px 5px 0px;
   align-items: center;
-  background-color: ${props => props.theme.color.grey[900]};
+  background-color: ${props => props.theme.color.green[500]};
   border: 0;
-  border-radius: 12px;
-  box-shadow: ${props => props.boxShadow};
   color: ${props => !props.disabled ? props.color : `${props.color}55`};
   cursor: pointer;
   display: flex;
@@ -112,7 +112,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   pointer-events: ${props => !props.disabled ? undefined : 'none'};
   width: 100%;
   &:hover {
-    background-color: ${props => props.color};
+    background-color: ${props => props.theme.color.green[500]};
     color: ${props => props.theme.color.grey[900]};
   }
 `
