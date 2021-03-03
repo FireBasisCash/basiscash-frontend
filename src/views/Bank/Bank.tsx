@@ -12,6 +12,7 @@ import Stake from './components/Stake';
 import useBank from '../../hooks/useBank';
 import useRedeem from '../../hooks/useRedeem';
 import { Bank as BankEntity } from '../../basis-cash';
+import Accelerator from './components/Accelerator';
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
@@ -39,6 +40,11 @@ const Bank: React.FC = () => {
           <StyledCardWrapper>
             <Stake bank={bank} />
           </StyledCardWrapper>
+          {bank.accelerator?(
+            <StyledCardWrapper>
+            <Accelerator bank={bank} />
+          </StyledCardWrapper>
+          ):(<div></div>)}
         </StyledCardsWrapper>
         <Spacer size="lg" />
         {bank.depositTokenName.includes('LP') && <LPTokenHelpText bank={bank} />}

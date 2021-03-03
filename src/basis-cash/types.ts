@@ -9,12 +9,15 @@ export interface BankInfo {
   earnTokenName: ContractName;
   sort: number;
   finished: boolean;
+  accelerator : boolean;
+  acceleratorTokenName: ContractName;
 }
 
 export interface Bank extends  BankInfo {
   address: string;
   depositToken: ERC20;
   earnToken: ERC20;
+  acceleratorToken: ERC20;
 }
 
 export type TokenStat = {
