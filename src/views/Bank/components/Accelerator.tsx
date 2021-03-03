@@ -12,10 +12,7 @@ import Value from '../../../components/Value';
 
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useModal from '../../../hooks/useModal';
-import useStake from '../../../hooks/useStake';
-import useStakedBalance from '../../../hooks/useStakedBalance';
 import useTokenBalance from '../../../hooks/useTokenBalance';
-import useWithdraw from '../../../hooks/useWithdraw';
 
 import { getDisplayBalance } from '../../../utils/formatBalance';
 
@@ -26,14 +23,16 @@ import { Bank } from '../../../basis-cash';
 import useAcceleratorStakedBalance from '../../../hooks/useAcceleratorStakedBalance';
 import useAcceleratorStake from '../../../hooks/useAcceleratorStake';
 import useAcceleratorWithdraw from '../../../hooks/useAcceleratorWithdraw';
+import { parseUnits } from 'ethers/lib/utils';
+import useBasisCash from '../../../hooks/useBasisCash';
 
 interface AcceleratorProps {
   bank: Bank;
 }
 
 const Accelerator: React.FC<AcceleratorProps> = ({ bank }) => {
-  const [approveStatus, approve] = useApprove(bank.acceleratorToken, bank.address);
 
+  const [approveStatus, approve] = useApprove(bank.acceleratorToken, bank.address);
   // TODO: reactive update of token balance
   const tokenBalance = useTokenBalance(bank.acceleratorToken);
   const stakedBalance = useAcceleratorStakedBalance(bank.contract);
@@ -64,6 +63,7 @@ const Accelerator: React.FC<AcceleratorProps> = ({ bank }) => {
       tokenName={bank.acceleratorTokenName}
     />,
   );
+
 
   return (
     <Card>

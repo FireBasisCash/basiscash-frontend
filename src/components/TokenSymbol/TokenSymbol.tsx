@@ -5,7 +5,6 @@ import basLogo from '../../assets/img/basis-share-logo.svg';
 import babLogo from '../../assets/img/basis-bond-logo.svg';
 
 const logosBySymbol: {[title: string]: string} = {
-
   'FBC': bacLogo,
   'FBB': babLogo,
   'FBS': basLogo,

@@ -22,7 +22,7 @@ export class BasisCash {
   externalTokens: { [name: string]: ERC20 };
   boardroomVersionOfUser?: string;
 
-  FBCDai: Contract;
+  FBCUSDT: Contract;
   FBC: ERC20;
   FBS: ERC20;
   FBB: ERC20;
@@ -41,13 +41,13 @@ export class BasisCash {
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal); // TODO: add decimal
     }
-    this.FBC = new ERC20(deployments.Cash.address, provider, 'FBC');
-    this.FBS = new ERC20(deployments.Share.address, provider, 'FBS');
-    this.FBB = new ERC20(deployments.Bond.address, provider, 'FBB');
-    this.FBG = new ERC20(deployments.Governance.address, provider, 'FBG');
-
+    this.FBC = new ERC20(deployments.Cash.address, provider, 'FBC',18);
+    this.FBS = new ERC20(deployments.Share.address, provider, 'FBS',18);
+    this.FBB = new ERC20(deployments.Bond.address, provider, 'FBB',18);
+    this.FBG = new ERC20(deployments.FBG.address, provider, 'FBG',18);
+    
     // Uniswap V2 Pair
-    this.FBCDai = new Contract(
+    this.FBCUSDT = new Contract(
       externalTokens['FBC_USDT_LP'][0],
       IUniswapV2PairABI,
       provider,
@@ -69,11 +69,11 @@ export class BasisCash {
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
-    const tokens = [this.FBC, this.FBS, this.FBB, ...Object.values(this.externalTokens)];
+    const tokens = [this.FBC, this.FBS, this.FBB, this.FBG,...Object.values(this.externalTokens)];
     for (const token of tokens) {
       token.connect(this.signer);
     }
-    this.FBCDai = this.FBCDai.connect(this.signer);
+    this.FBCUSDT = this.FBCUSDT.connect(this.signer);
     console.log(`🔓 Wallet is unlocked. Welcome, ${account}!`);
     this.fetchBoardroomVersionOfUser()
       .then((version) => (this.boardroomVersionOfUser = version))

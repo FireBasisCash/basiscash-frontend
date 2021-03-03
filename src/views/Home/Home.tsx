@@ -35,6 +35,7 @@ const Home: React.FC = () => {
   const cashAddr = useMemo(() => basisCash?.FBC.address, [basisCash]);
   const shareAddr = useMemo(() => basisCash?.FBS.address, [basisCash]);
   const bondAddr = useMemo(() => basisCash?.FBB.address, [basisCash]);
+  const governanceAddr = useMemo(() => basisCash?.FBG.address, [basisCash]);
 
   return (
     <Page>
@@ -47,7 +48,7 @@ const Home: React.FC = () => {
       <CardWrapper>
         <HomeCard
           title="Fire Basis Cash"
-          symbol="BAC"
+          symbol="FBC"
           color="#EEA7ED"
           supplyLabel="Circulating Supply"
           address={cashAddr}
@@ -56,7 +57,7 @@ const Home: React.FC = () => {
         <Spacer size="lg" />
         <HomeCard
           title="Fire Basis Share"
-          symbol="BAS"
+          symbol="FBS"
           color="#E83725"
           address={shareAddr}
           stat={share}

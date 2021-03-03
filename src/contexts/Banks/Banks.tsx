@@ -41,8 +41,8 @@ const Banks: React.FC = ({ children }) => {
       return BasisCash.FBC;
     if (tokenName == 'FBS')
       return BasisCash.FBS;
-    if (tokenName == 'FBG')
-      return BasisCash.FBG;
+    if (tokenName == 'FBB')
+      return BasisCash.FBB;
     
     return BasisCash.externalTokens[tokenName];
   }

@@ -11,10 +11,7 @@ const configurations: { [env: string]: Configuration } = {
     defaultProvider: 'https://goerli.infura.io/v3/f7af27e963cb41cbb46973bcc2d7944c',
     deployments: require('./basis-cash/deployments/deployments.goerli.json'),
     externalTokens: {
-      DAI: ['0x6B175474E89094C44Da98b954EedeAC495271d0F', 18],
-      yCRV: ['0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', 18],
-      SUSD: ['0x57Ab1E02fEE23774580C119740129eAC7081e9D3', 18],
-      USDC: ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 6],
+
       USDT: ['0x45Df2Ccc7a506D819C7c2d59Cfa44c73eda5C311', 6],
 
       'FBS_USDT_LP': ['0x2F5684996808A17CC5C1C95495504D599f62262d', 18],
@@ -33,10 +30,6 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./basis-cash/deployments/deployments.mainnet.json'),
     externalTokens: {
 
-      DAI: ['0x6B175474E89094C44Da98b954EedeAC495271d0F', 18],
-      yCRV: ['0xdf5e0e81dff6faf3a7e52ba697820c5e32d806a8', 18],
-      SUSD: ['0x57Ab1E02fEE23774580C119740129eAC7081e9D3', 18],
-      USDC: ['0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', 6],
       USDT: ['0xdAC17F958D2ee523a2206206994597C13D831ec7', 6],
       'FBS_USDT_LP': ['0x2F5684996808A17CC5C1C95495504D599f62262d', 18],
       'FBC_USDT_LP': ['0xaB707042f31AfeD5FDF440D9f2C2Bba45F855844', 18]

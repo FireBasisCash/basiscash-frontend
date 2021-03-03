@@ -9,6 +9,7 @@ import Modal, { ModalProps } from '../../Modal';
 import ModalTitle from '../../ModalTitle';
 import useBasisCash from '../../../hooks/useBasisCash';
 import TokenSymbol from '../../TokenSymbol';
+import { useWallet } from 'use-wallet';
 
 const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const basisCash = useBasisCash();
@@ -22,9 +23,14 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
   const babBalance = useTokenBalance(basisCash.FBB);
   const displayBabBalance = useMemo(() => getDisplayBalance(babBalance), [babBalance]);
 
+  const fbgBalance = useTokenBalance(basisCash.FBG);
+  const displayFbgBalance = useMemo(() => getDisplayBalance(fbgBalance), [fbgBalance]);
+
+  const { account } = useWallet();
+
   return (
     <Modal>
-      <ModalTitle text="My Wallet" />
+      <ModalTitle text={account?account:"My Wallet"} />
 
       <Balances>
         <StyledBalanceWrapper>
@@ -48,6 +54,14 @@ const AccountModal: React.FC<ModalProps> = ({ onDismiss }) => {
           <StyledBalance>
             <StyledValue>{displayBabBalance}</StyledValue>
             <Label text="FBB Available" />
+          </StyledBalance>
+        </StyledBalanceWrapper>
+
+        <StyledBalanceWrapper>
+          <TokenSymbol symbol="FBG" />
+          <StyledBalance>
+            <StyledValue>{displayFbgBalance}</StyledValue>
+            <Label text="FBG Available" />
           </StyledBalance>
         </StyledBalanceWrapper>
       </Balances>
