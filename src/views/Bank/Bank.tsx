@@ -13,6 +13,7 @@ import useBank from '../../hooks/useBank';
 import useRedeem from '../../hooks/useRedeem';
 import { Bank as BankEntity } from '../../basis-cash';
 import Accelerator from './components/Accelerator';
+import StakeETH from './components/StakeETH';
 
 const Bank: React.FC = () => {
   useEffect(() => window.scrollTo(0, 0));
@@ -38,7 +39,7 @@ const Bank: React.FC = () => {
           </StyledCardWrapper>
           <Spacer />
           <StyledCardWrapper>
-            <Stake bank={bank} />
+            {bank.depositTokenName=="HT"?(<StakeETH bank={bank} />):(<Stake bank={bank} />)}
           </StyledCardWrapper>
           {bank.accelerator?(
             <StyledCardWrapper>

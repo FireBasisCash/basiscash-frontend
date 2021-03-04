@@ -43,7 +43,6 @@ class ERC20 {
   }
 
   approve(spender: string, amount: BigNumber): Promise<TransactionResponse> {
-    debugger
     return this.contract.approve(spender, amount);
   }
 

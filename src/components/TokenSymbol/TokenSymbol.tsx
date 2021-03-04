@@ -13,6 +13,7 @@ const logosBySymbol: {[title: string]: string} = {
   'FBC_USDT_LP': bacLogo,
   'FBG_USDT_LP': bacLogo,
   'FBS_USDT_LP': basLogo,
+  'HT': basLogo,
 };
 
 type BasisLogoProps = {

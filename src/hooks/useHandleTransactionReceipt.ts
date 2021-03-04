@@ -9,9 +9,11 @@ function useHandleTransactionReceipt(): (
 ) => void {
   const addTransaction = useTransactionAdder();
   const addPopup = useAddPopup();
-
+  
   return useCallback(
     (promise: Promise<TransactionResponse>, summary: string) => {
+
+      console.log(promise);
       promise
         .then((tx) => addTransaction(tx, { summary }))
         .catch((err) => {

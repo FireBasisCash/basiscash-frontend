@@ -8,6 +8,11 @@ import ERC20 from './ERC20';
 import { getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
+import Web3Object from 'web3';
+import { Web3Contract } from './web3Contract';
+import { resolve } from 'path';
+
+
 
 /**
  * An API module of FBSis Cash contracts.
@@ -16,12 +21,14 @@ import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 export class BasisCash {
   myAccount: string;
   provider: ethers.providers.Web3Provider;
+  wallet: ethers.Wallet;
   signer?: ethers.Signer;
   config: Configuration;
   contracts: { [name: string]: Contract };
   externalTokens: { [name: string]: ERC20 };
   boardroomVersionOfUser?: string;
-
+  web3: Web3Object;
+  web3Contracts: { [name: string]: Web3Contract };
   FBCUSDT: Contract;
   FBC: ERC20;
   FBS: ERC20;
@@ -31,21 +38,26 @@ export class BasisCash {
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
     const provider = getDefaultProvider();
+    this.web3 = cfg.defaultProvider ? new Web3Object(cfg.defaultProvider) : new Web3Object();
+
 
     // loads contracts from deployments
     this.contracts = {};
+    this.web3Contracts = {};
     for (const [name, deployment] of Object.entries(deployments)) {
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
+      // this.web3Contracts[name] = new Web3Contract(this.web3, deployment.abi, deployment.address);
     }
     this.externalTokens = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
       this.externalTokens[symbol] = new ERC20(address, provider, symbol, decimal); // TODO: add decimal
     }
-    this.FBC = new ERC20(deployments.Cash.address, provider, 'FBC',18);
-    this.FBS = new ERC20(deployments.Share.address, provider, 'FBS',18);
-    this.FBB = new ERC20(deployments.Bond.address, provider, 'FBB',18);
-    this.FBG = new ERC20(deployments.FBG.address, provider, 'FBG',18);
-    
+    this.FBC = new ERC20(deployments.Cash.address, provider, 'FBC', 18);
+    this.FBS = new ERC20(deployments.Share.address, provider, 'FBS', 18);
+    this.FBB = new ERC20(deployments.Bond.address, provider, 'FBB', 18);
+    this.FBG = new ERC20(deployments.FBG.address, provider, 'FBG', 18);
+
+
     // Uniswap V2 Pair
     this.FBCUSDT = new Contract(
       externalTokens['FBC_USDT_LP'][0],
@@ -64,12 +76,19 @@ export class BasisCash {
   unlockWallet(provider: any, account: string) {
     const newProvider = new ethers.providers.Web3Provider(provider, this.config.chainId);
 
+    this.web3 = provider ? new Web3Object(provider) : new Web3Object();
+
     this.signer = newProvider.getSigner(0);
     this.myAccount = account;
     for (const [name, contract] of Object.entries(this.contracts)) {
       this.contracts[name] = contract.connect(this.signer);
     }
-    const tokens = [this.FBC, this.FBS, this.FBB, this.FBG,...Object.values(this.externalTokens)];
+
+    for (const [name, deployment] of Object.entries(this.config.deployments)) {
+      this.web3Contracts[name] = new Web3Contract(this.web3, deployment.abi, deployment.address);
+    }
+
+    const tokens = [this.FBC, this.FBS, this.FBB, this.FBG, ...Object.values(this.externalTokens)];
     for (const token of tokens) {
       token.connect(this.signer);
     }
@@ -168,7 +187,7 @@ export class BasisCash {
       const priceInUsdt = new Route([usdtToToken], token);
       return priceInUsdt.midPrice.toSignificant(3);
     } catch (err) {
-      
+
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
     }
   }
@@ -265,6 +284,107 @@ export class BasisCash {
     const gas = await pool.estimateGas.stake(amount);
     return await pool.stake(amount, this.gasOptions(gas));
   }
+
+  /**
+ * Deposits token to given pool.
+ * @param poolName A name of pool contract.
+ * @param amount Number of tokens with decimals applied. (e.g. 1.45 DAI * 10^18)
+ * @returns {string} Transaction hash
+ */
+  async stakeETH(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
+    // debugger
+    // const pool = this.contracts[poolName];
+    // const gas = await pool.estimateGas.stake(amount);
+    // return await pool.stake(amount, this.gasOptions(gas));
+
+    const contract = this.web3Contracts[poolName].contract;
+    const value = amount.toString();//this.web3.utils.toWei(valueString)
+    return await contract.methods
+      .stake()
+      .send({
+        to: contract.options.address,
+        from: this.myAccount,
+        value: value
+      })
+      .once('transactionHash', (data: any) => {
+        console.log("transactionHash:" + data);
+        resolve();
+      })
+      .once('receipt', (data: any) => {
+        console.log("receipt" + JSON.stringify(data));
+      })
+      .on('error', (error: Error) => {
+        console.log(error);
+      });
+
+    /**
+     *     
+     * transactionIndex: number;
+    transactionHash: string;
+    blockHash: string;
+    blockNumber: number;
+    address: string;
+     */
+    // const contract = this.web3Contracts[poolName].contract;
+    // const value = amount.toString();//this.web3.utils.toWei(valueString)
+    // let p = new Promise<TransactionResponse>(() => {
+    //     contract.methods
+    //       .stake()
+    //       .send({
+    //         to: contract.options.address,
+    //         from: this.myAccount,
+    //         value: value
+    //       })
+    //       .once('transactionHash',(txHash:string)  => {
+    //         console.log("transactionHash:"+txHash);
+    //         result:TransactionResponse = {
+    //           hash:txHash,
+    //           confirmations: 0,
+    //           from: this.myAccount
+    //         }
+    //         resolve(result);
+    //       })
+    //       .once('receipt', (error: Error, event: any) => {
+    //         console.log("transactionHash:"+event);
+    //       })
+    //       .on('error', (error: Error) => {
+    //         console.log(error);
+    //       });
+    //   });
+
+    //   return p;
+  }
+
+  async unstakeETH(poolName: ContractName, amount: BigNumber): Promise<TransactionResponse> {
+    // const pool = this.contracts[poolName];
+    // const gas = await pool.estimateGas.withdraw(amount);
+    // return await pool.withdraw(amount, this.gasOptions(gas));
+    const contract = this.web3Contracts[poolName].contract;
+    const value = this.web3.utils.toWei("0")
+    // let p = new Promise<TransactionResponse>(()=>
+    // {
+
+    // });
+
+    return await contract.methods
+      .withdraw(amount)
+      .send({
+        to: contract.options.address,
+        from: this.myAccount,
+        value: value
+      })
+      .once('transactionHash', (txHash: string) => {
+        console.log("transactionHash");
+      })
+      .once('receipt', () => {
+        console.log("receipt");
+      })
+      .on('error', (error: Error) => {
+        console.log(error);
+      });
+
+  }
+
 
   /**
    * Withdraws token from given pool.

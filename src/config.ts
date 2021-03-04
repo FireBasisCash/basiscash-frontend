@@ -69,6 +69,17 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     acceleratorTokenName: 'FBG'
   },
 
+  ETH_AcceleratorCashPool: {
+    name: 'HT Pool',
+    contract: 'ETH_AcceleratorCashPool',
+    depositTokenName: 'HT',
+    earnTokenName: 'FBC',
+    finished: false,
+    sort: 3,
+    accelerator:true,
+    acceleratorTokenName: 'FBG'
+  },
+
   // FBS
   FBCUSDTLPTokenAcceleratorSharePool: {
     name: 'FBC_USDT_LP Pool(FBG)',

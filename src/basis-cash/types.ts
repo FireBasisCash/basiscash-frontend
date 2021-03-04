@@ -1,3 +1,4 @@
+import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
 
 export type ContractName = string;
