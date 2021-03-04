@@ -11,12 +11,9 @@ const useWithdrawETH = (bank: Bank) => {
   const handleWithdrawETH = useCallback(
     (amount: string) => {
       const amountBn = parseUnits(amount, 18);
-      handleTransactionReceipt(
-        basisCash.unstakeETH(bank.contract, amountBn),
-        `Withdraw ${amount} ${bank.depositTokenName} from ${bank.contract}`,
-      );
-    },
-    [bank, basisCash],
+      const summary = `Withdraw ${amount} ${bank.depositTokenName} from ${bank.contract}`;
+      basisCash.unstakeETH(bank.contract, summary, amountBn)
+    }, [bank, basisCash]
   );
   return { onWithdrawETH: handleWithdrawETH };
 };

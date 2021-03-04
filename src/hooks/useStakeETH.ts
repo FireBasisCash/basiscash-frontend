@@ -6,18 +6,27 @@ import { parseUnits } from 'ethers/lib/utils';
 
 const useStakeETH = (bank: Bank) => {
   const basisCash = useBasisCash();
-  const handleTransactionReceipt = useHandleTransactionReceipt();
 
   const handleStakeETH = useCallback(
     (amount: string) => {
       const amountBn = parseUnits(amount, 18);
-      handleTransactionReceipt(
-        basisCash.stakeETH(bank.contract, amountBn),
-        `Stake ${amount} ${bank.depositTokenName} to ${bank.contract}`,
-      );
+      const sum = `Stake ${amount} ${bank.depositTokenName} to ${bank.contract}`;
+      basisCash.stakeETH(bank.contract, sum, amountBn)
     },
     [bank, basisCash],
   );
+
+  // const handleStake = useCallback(
+  //   (amount: string) => {
+  //     const amountBn = parseUnits(amount, bank.depositToken.decimal);
+  //     handleTransactionReceipt(
+  //       basisCash.stake(bank.contract, amountBn),
+  //       `Stake ${amount} ${bank.depositTokenName} to ${bank.contract}`,
+  //     );
+  //   },
+  //   [bank, basisCash],
+  // );
+
   return { onStakeETH: handleStakeETH };
 };
 
