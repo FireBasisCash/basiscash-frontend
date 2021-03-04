@@ -82,7 +82,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
 
   // FBS
   FBCUSDTLPTokenAcceleratorSharePool: {
-    name: 'FBC_USDT_LP Pool(FBG)',
+    name: 'FBC_USDT_LP Pool',
     contract: 'FBC_USDT_AcceleratorSharePool',
     depositTokenName: 'FBC_USDT_LP',
     earnTokenName: 'FBS',

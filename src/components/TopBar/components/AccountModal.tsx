@@ -85,6 +85,7 @@ const Balances = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  flex-wrap: wrap;
   margin-bottom: ${props => props.theme.spacing[4]}px;
 `
 

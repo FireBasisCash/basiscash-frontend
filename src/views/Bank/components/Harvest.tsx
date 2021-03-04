@@ -35,7 +35,7 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
         <StyledCardContentInner>
           <StyledCardHeader>
             <CardIcon>
-              <TokenSymbol symbol={bank.earnToken.symbol} />
+              <TokenSymbol symbol={bank.earnToken.symbol} size={54} />
             </CardIcon>
             <StyledPriceLabel>{getDisplayBalance(totalEarnings, 18, 2)} </StyledPriceLabel>
             <DescribePriceLabel>{`Gross Earnings`}</DescribePriceLabel>
