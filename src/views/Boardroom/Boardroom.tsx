@@ -73,7 +73,7 @@ const Boardroom: React.FC = () => {
       <Switch>
         <Page>
           <PageHeader
-            icon={'🤝'}
+            // icon={'🤝'}
             title="Join the Boardroom"
             subtitle="Deposit Fire Basis Shares and earn inflationary rewards"
           />
@@ -93,7 +93,7 @@ const Boardroom: React.FC = () => {
         {!!account ? (
           <>
             <PageHeader
-              icon={'🤝'}
+              // icon={'🤝'}
               title="Join the Boardroom"
               subtitle="Deposit Fire Basis Shares and earn inflationary rewards"
             />

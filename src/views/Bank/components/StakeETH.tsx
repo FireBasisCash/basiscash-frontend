@@ -72,7 +72,7 @@ const Stake: React.FC<StakeProps> = ({ bank }) => {
               <TokenSymbol symbol="HT" size={54} />
             </CardIcon>
             
-            <StyledPriceLabel>{'$'+getDisplayBalance(stakedBalance, 18, 2)} </StyledPriceLabel>
+            <StyledPriceLabel>{getDisplayBalance(stakedBalance, 18, 2)} </StyledPriceLabel>
             <DescribePriceLabel>{`HT Staked`}</DescribePriceLabel>
 
           </StyledCardHeader>

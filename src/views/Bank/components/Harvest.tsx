@@ -37,18 +37,18 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.earnToken.symbol} />
             </CardIcon>
-            <StyledPriceLabel>{'$'+getDisplayBalance(totalEarnings, 18, 2)} </StyledPriceLabel>
+            <StyledPriceLabel>{getDisplayBalance(totalEarnings, 18, 2)} </StyledPriceLabel>
             <DescribePriceLabel>{`Gross Earnings`}</DescribePriceLabel>
             {bank.accelerator?(
               <div>
-                <StyledPriceLabel>{'$' + getDisplayBalance(tokenEarnings, 18, 2)}</StyledPriceLabel>
-                <DescribePriceLabel>{`${tokenName} Income`}</DescribePriceLabel>
+                <StyledPriceLabel>{getDisplayBalance(tokenEarnings, 18, 2)}</StyledPriceLabel>
+                <DescribePriceLabel>{`${tokenName} Earnings`}</DescribePriceLabel>
               </div>
             ):(<div></div>)}
             {bank.accelerator?(
               <div>
-                <StyledPriceLabel>{'$' + getDisplayBalance(acceleratorEarnings, 18, 2)}</StyledPriceLabel>
-                <DescribePriceLabel>{`Accelerated Income`}</DescribePriceLabel>
+                <StyledPriceLabel>{getDisplayBalance(acceleratorEarnings, 18, 2)}</StyledPriceLabel>
+                <DescribePriceLabel>{`Accelerated Earnings`}</DescribePriceLabel>
               </div>
             ):(<div></div>)}
           </StyledCardHeader>

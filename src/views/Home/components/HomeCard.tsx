@@ -6,6 +6,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import HomeTokenSymbol from '../../../components/TokenSymbol/HomeTokenSymbol';
 import { commify } from 'ethers/lib/utils';
 import config from '../../../config';
+import { getDisplayBalance } from '../../../utils/formatBalance';
+import BigNumber from 'bignumber.js';
 
 interface HomeCardProps {
   title: string;
@@ -34,7 +36,7 @@ const HomeCard: React.FC<HomeCardProps> = ({
           <CardSection>
             <Label text="Current Price" color={color} />
             {stat ? (
-              <StyledValue>{(stat.priceInUsdt !== '-' ? '$' : '') + stat.priceInUsdt}</StyledValue>
+              <StyledValue>{(stat.priceInUsdt !== '-' ? '$' : '') + parseFloat(stat.priceInUsdt).toFixed(4)}</StyledValue>
             ) : (
               <ValueSkeleton />
             )}
@@ -67,13 +69,13 @@ const CardHeader = styled.h2`
 
 const StyledCards = styled.div`
   position:relative;
-  min-width: 200px;
+  min-width: 280px;
   padding: ${(props) => props.theme.spacing[3]}px;
   color: ${(props) => props.theme.color.white};
   background-color: #ffffff;
   border-radius: 5px;
   @media (max-width: 768px) {
-    width: 100%;
+
   }
 `;
 
@@ -85,7 +87,7 @@ const StyledValue = styled.span`
 `;
 
 const CardText = styled.div`
-  margin-left: 142px;
+  margin-left: 78px;
 `;
 
 const CardSection = styled.div`
@@ -96,8 +98,8 @@ const CardSection = styled.div`
 `;
 
 const ValueSkeletonPadding = styled.div`
-  padding-top: ${(props) => props.theme.spacing[3]}px;
-  padding-bottom: ${(props) => props.theme.spacing[2]}px;
+  padding-top: ${(props) => props.theme.spacing[2]}px;
+  padding-bottom: ${(props) => props.theme.spacing[1]}px;
 `;
 
 const StyledSupplyLabel = styled.a`

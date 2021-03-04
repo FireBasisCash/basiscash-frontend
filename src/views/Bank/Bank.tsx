@@ -125,7 +125,7 @@ const StyledLink = styled.a`
 
 const StyledCardsWrapper = styled.div`
   display: flex;
-  max-width: 1200px;
+  max-width: 1000px;
   width: 100%;
   @media (max-width: 768px) {
     width: 100%;
