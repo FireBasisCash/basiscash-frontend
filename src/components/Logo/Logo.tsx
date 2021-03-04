@@ -15,6 +15,8 @@ const Logo: React.FC = () => {
 const StyledLogo = styled.div`
   align-items: center;
   display: flex;
+  margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
 const StyledLink = styled.a`

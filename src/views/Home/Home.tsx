@@ -48,7 +48,7 @@ const Home: React.FC = () => {
         <HomeCard
           title="Fire Basis Cash"
           symbol="FBC"
-          color="#EEA7ED"
+          color="#5B6C94"
           supplyLabel="Circulating Supply"
           address={cashAddr}
           stat={cash}
@@ -57,7 +57,7 @@ const Home: React.FC = () => {
         <HomeCard
           title="Fire Basis Share"
           symbol="FBS"
-          color="#E83725"
+          color="#5B6C94"
           address={shareAddr}
           stat={share}
         />
@@ -65,7 +65,7 @@ const Home: React.FC = () => {
         {/* <HomeCard
           title="Basis Bond"
           symbol="BAB"
-          color="#ECF25C"
+          color="#5B6C94"
           address={bondAddr}
           stat={bond}
         /> */}

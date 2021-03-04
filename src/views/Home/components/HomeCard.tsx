@@ -27,24 +27,24 @@ const HomeCard: React.FC<HomeCardProps> = ({
   const tokenUrl = `${config.etherscanUrl}/token/${address}`;
   return (
     <Wrapper>
-      <CardHeader>{title}</CardHeader>
       <StyledCards>
+        <CardHeader>{title}</CardHeader>
         <TokenSymbol symbol={symbol} />
-        <CardSection>
-          {stat ? (
-            <StyledValue>{(stat.priceInUsdt !== '-' ? '$' : '') + stat.priceInUsdt}</StyledValue>
-          ) : (
-            <ValueSkeleton />
-          )}
-          <Label text="Current Price" color={color} />
-        </CardSection>
+        <CardText>
+          <CardSection>
+            <Label text="Current Price" color={color} />
+            {stat ? (
+              <StyledValue>{(stat.priceInUsdt !== '-' ? '$' : '') + stat.priceInUsdt}</StyledValue>
+            ) : (
+              <ValueSkeleton />
+            )}
+          </CardSection>
 
-        <CardSection>
-          {stat ? <StyledValue>{commify(stat.totalSupply)}</StyledValue> : <ValueSkeleton />}
-          <StyledSupplyLabel href={tokenUrl} target="_blank" color={color}>
-            {supplyLabel}
-          </StyledSupplyLabel>
-        </CardSection>
+          <CardSection>
+            <StyledSupplyLabel href={tokenUrl} target="_blank" color={color}>{supplyLabel}</StyledSupplyLabel>
+            {stat ? <StyledValue>{commify(stat.totalSupply)}</StyledValue> : <ValueSkeleton />}
+          </CardSection>
+        </CardText>
       </StyledCards>
     </Wrapper>
   );
@@ -57,15 +57,20 @@ const Wrapper = styled.div`
 `;
 
 const CardHeader = styled.h2`
-  color: #fff;
-  text-align: center;
+  height: 22px;
+  font-size: 18px;
+  font-family: Rubik-Medium, Rubik;
+  font-weight: 700;
+  color: #031D5B;
+  line-height: 22px;
 `;
 
 const StyledCards = styled.div`
+  position:relative;
   min-width: 200px;
   padding: ${(props) => props.theme.spacing[3]}px;
   color: ${(props) => props.theme.color.white};
-  background-color: ${(props) => props.theme.color.grey[900]};
+  background-color: #ffffff;
   border-radius: 5px;
   @media (max-width: 768px) {
     width: 100%;
@@ -74,13 +79,17 @@ const StyledCards = styled.div`
 
 const StyledValue = styled.span`
   display: inline-block;
-  font-size: 36px;
-  color: #eeeeee;
+  font-size: 24px;
+  color: #5B6C94;
+  font-weight: bold;
+`;
+
+const CardText = styled.div`
+  margin-left: 80px;
 `;
 
 const CardSection = styled.div`
-  margin-bottom: ${(props) => props.theme.spacing[4]}px;
-
+  margin-bottom: 8px;
   &:last-child {
     margin-bottom: 0;
   }
