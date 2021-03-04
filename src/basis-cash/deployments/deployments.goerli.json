@@ -8528,9 +8528,9 @@
       }
     ]
   },
-  "ETH_AcceleratorCashPool":{
-    "address":"0x3607B4FC280fD3cE14A1361238661e9f5E99f72E",
-    "abi":[
+  "ETH_AcceleratorCashPool": {
+    "address": "0x1498f22cFd155A22fC1C52c95cFBb482092476Bb",
+    "abi": [
       {
         "inputs": [
           {
@@ -8869,25 +8869,6 @@
             "internalType": "contract IERC20",
             "name": "",
             "type": "address"
-          }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-      },
-      {
-        "inputs": [
-          {
-            "internalType": "address",
-            "name": "",
-            "type": "address"
-          }
-        ],
-        "name": "deposits",
-        "outputs": [
-          {
-            "internalType": "uint256",
-            "name": "",
-            "type": "uint256"
           }
         ],
         "stateMutability": "view",
