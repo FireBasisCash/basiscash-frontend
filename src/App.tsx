@@ -18,6 +18,9 @@ import config from './config';
 import Updaters from './state/Updaters';
 import Boardroom from './views/Boardroom';
 import Popups from './components/Popups';
+import WhiteList from './views/WhiteList';
+import Governance from './views/Governance';
+
 
 const App: React.FC = () => {
   return (
@@ -41,6 +44,12 @@ const App: React.FC = () => {
           </Route>
           <Route path="/boardroom">
             <Boardroom />
+          </Route>
+          <Route path="/whitelist">
+            <WhiteList />
+          </Route>
+          <Route path="/governance">
+            <Governance />
           </Route>
         </Switch>
       </Router>
