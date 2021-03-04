@@ -4,17 +4,21 @@ import fbcLogo from '../../assets/img/fbc.svg';
 import fbsLogo from '../../assets/img/fbs.svg';
 import fbbLogo from '../../assets/img/fbb.svg';
 import fbgLogo from '../../assets/img/fbg.svg';
+import usdtLogo from '../../assets/img/USDT.png';
+import HTLogo from '../../assets/img/HT.png';
 
 const logosBySymbol: {[title: string]: string} = {
+
   'FBC': fbcLogo,
   'FBB': fbbLogo,
   'FBS': fbsLogo,
   'FBG': fbgLogo,
-  "USDT": fbcLogo,
-  'FBC_USDT_LP': fbcLogo,
-  'FBG_USDT_LP': fbcLogo,
-  'FBS_USDT_LP': fbcLogo,
-  'HT': fbcLogo,
+  "USDT": usdtLogo,
+  'HT': HTLogo,
+
+  'FBC_USDT_LP': fbsLogo,
+  'FBS_USDT_LP': fbsLogo,
+  'FBG_USDT_LP': fbsLogo,
 
 };
 
