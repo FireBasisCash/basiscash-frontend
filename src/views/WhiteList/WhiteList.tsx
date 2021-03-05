@@ -27,7 +27,7 @@ const WhiteList: React.FC = () => {
         <StyleSubtitle>
             We are starting the <b style={{color:"#1FDB84"}}>genesis mining</b>, and the whitelisting activity are currently underway. Submitting your <b style={{color:"#1FDB84"}}>Heco Address</b>(non-ERC20 address) to join whitelist.<br/>
             The earliest <b style={{color:"#1FDB84"}}>100 submitters</b> will specially receive certain rewards. <br/>
-            Downloading and creating an address from <b style={{color:"#1FDB84"}}>Huobi Wallet</b> site <a target="_blank" style={{color:white}} href="https://www.huobiwallet.com">https://www.huobiwallet.com</a>. <br/>
+            Downloading and creating an address from <b style={{color:"#1FDB84"}}>Huobi Wallet</b> site <a target="_blank" style={{color:white}} href="https://huobiwallet.com">https://huobiwallet.com</a>. <br/>
             Everyone is welcome. Regards.🏄
         </StyleSubtitle>
         <Center>
