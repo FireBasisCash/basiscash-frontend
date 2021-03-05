@@ -14,26 +14,26 @@ code {
 
 @font-face { 
   font-family: 'MartianBThai-Regular';
-  src: url('/src/assets/fonts/MartianBThai-Regular.otf'); 
+  src: url('./assets/fonts/MartianBThai-Regular.otf') format('MartianBThai-Regular'); 
 }
 
 @font-face { 
   font-family: 'Rubik-Bold';
-  src: url('/assets/fonts/Rubik-Bold.ttf'); 
+  src: url('./assets/fonts/Rubik-Bold.ttf') format('Rubik-Bold'); 
 }
 
 @font-face { 
   font-family: 'Rubik-Light';
-  src: url('/src/assets/fonts/Rubik-Light.ttf'); 
+  src: url('./assets/fonts/Rubik-Light.ttf') format('Rubik-Light'); 
 }
 
 @font-face { 
   font-family: 'Rubik-Medium';
-  src: url('/src/assets/fonts/Rubik-Medium.ttf'); 
+  src: url('./assets/fonts/Rubik-Medium.ttf') format('Rubik-Medium'); 
 }
 
 @font-face { 
   font-family: 'Rubik-Regular';
-  src: url('/src/assets/fonts/Rubik-Regular.ttf'); 
+  src: url('./assets/fonts/Rubik-Regular.ttf') format('Rubik-Regular'); 
 }
 
