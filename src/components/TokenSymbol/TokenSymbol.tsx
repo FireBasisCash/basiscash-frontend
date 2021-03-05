@@ -15,7 +15,12 @@ const logosBySymbol: {[title: string]: string} = {
   'FBG': fbgLogo,
   "USDT": usdtLogo,
   'HT': HTLogo,
-
+  'HBTC': HTLogo,
+  'HETH': HTLogo,
+  'HLTC': HTLogo,
+  'HDOT': HTLogo,
+  'HFIL': HTLogo,
+  'MDX': HTLogo,
   'FBC_USDT_LP': fbsLogo,
   'FBS_USDT_LP': fbsLogo,
   'FBG_USDT_LP': fbsLogo,

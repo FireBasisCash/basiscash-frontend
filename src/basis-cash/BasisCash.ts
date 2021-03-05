@@ -33,12 +33,14 @@ export class BasisCash {
   FBS: ERC20;
   FBB: ERC20;
   FBG: ERC20;
+  nonce: number;
 
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
     const provider = getDefaultProvider();
     this.web3 = cfg.defaultProvider ? new Web3Object(cfg.defaultProvider) : new Web3Object();
+    this.nonce = 100000004;
 
     // loads contracts from deployments
     this.contracts = {};
@@ -139,9 +141,10 @@ export class BasisCash {
 
   gasOptions(gas: BigNumber): Overrides {
     const multiplied = Math.floor(gas.toNumber() * this.config.gasLimitMultiplier);
+    this.nonce++;
     console.log(`⛽️ Gas multiplied: ${gas} -> ${multiplied}`);
     return {
-      gasLimit: BigNumber.from(multiplied),
+      gasLimit: BigNumber.from(multiplied)
     };
   }
 
@@ -203,8 +206,7 @@ export class BasisCash {
 
       } else {
         despositTokenPrice = await this.getTokenPriceFromUniswap(bank.depositToken)
-        // rewardAmount = await pool.tokenRewardAmount();
-
+        rewardAmount = await pool.tokenRewardAmount();
       }
 
       const depositPrice = parseFloat(despositTokenPrice)

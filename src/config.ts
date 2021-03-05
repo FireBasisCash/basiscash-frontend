@@ -12,6 +12,7 @@ const configurations: { [env: string]: Configuration } = {
     deployments: require('./basis-cash/deployments/deployments.goerli.json'),
     externalTokens: {
       'USDT': ['0x45Df2Ccc7a506D819C7c2d59Cfa44c73eda5C311', 18],
+      'HBTC': ['0x66eEbc7bFc37DE3e00612D0c9cF7Db2d8A7ff51D', 18],
       'FBS_USDT_LP': ['0x2F5684996808A17CC5C1C95495504D599f62262d', 18],
       'FBC_USDT_LP': ['0xaB707042f31AfeD5FDF440D9f2C2Bba45F855844', 18],
       'FBG_USDT_LP': ['0xb5F8AaD755866ad31bCEB751a5256F328B5936C9', 18],
@@ -37,7 +38,7 @@ const configurations: { [env: string]: Configuration } = {
       'FBS_USDT_LP': ['0x2F5684996808A17CC5C1C95495504D599f62262d', 18],
       'FBC_USDT_LP': ['0xaB707042f31AfeD5FDF440D9f2C2Bba45F855844', 18],
       'FBG_USDT_LP': ['0xb5F8AaD755866ad31bCEB751a5256F328B5936C9', 18],
-      
+
       //HT
 
     },
@@ -58,7 +59,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBC',
     finished: false,
     sort: 1,
-    accelerator:false,
+    accelerator: false,
     acceleratorTokenName: 'FBG'
   },
   USDTAcceleratorCashPool: {
@@ -68,7 +69,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBC',
     finished: false,
     sort: 2,
-    accelerator:true,
+    accelerator: true,
     acceleratorTokenName: 'FBG'
   },
 
@@ -79,9 +80,22 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBC',
     finished: false,
     sort: 3,
-    accelerator:true,
+    accelerator: true,
     acceleratorTokenName: 'FBG'
   },
+
+  HBTC_AcceleratorcCashPool: {
+    name: 'HBTC Pool',
+    contract: 'HBTC_AcceleratorcCashPool',
+    depositTokenName: 'HBTC',
+    earnTokenName: 'FBC',
+    finished: false,
+    sort: 4,
+    accelerator: true,
+    acceleratorTokenName: 'FBG'
+  },
+
+
 
   // FBS
   FBCUSDTLPTokenAcceleratorSharePool: {
@@ -91,7 +105,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBS',
     finished: false,
     sort: 5,
-    accelerator:true,
+    accelerator: true,
     acceleratorTokenName: 'FBG'
   },
   FBSUSDTLPTokenSharePool: {
@@ -101,7 +115,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBS',
     finished: false,
     sort: 6,
-    accelerator:true,
+    accelerator: true,
     acceleratorTokenName: 'FBG'
   },
   FBGUSDTLPTokenSharePool: {
@@ -111,7 +125,7 @@ export const bankDefinitions: { [contractName: string]: BankInfo } = {
     earnTokenName: 'FBS',
     finished: false,
     sort: 7,
-    accelerator:true,
+    accelerator: true,
     acceleratorTokenName: 'FBG'
   },
 };

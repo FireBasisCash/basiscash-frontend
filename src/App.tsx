@@ -20,6 +20,8 @@ import Boardroom from './views/Boardroom';
 import Popups from './components/Popups';
 import WhiteList from './views/WhiteList';
 import Governance from './views/Governance';
+import Robot from './views/Robot';
+import RobotPage from './views/Robot';
 
 
 const App: React.FC = () => {
@@ -50,6 +52,9 @@ const App: React.FC = () => {
           </Route>
           <Route path="/governance">
             <Governance />
+          </Route>
+          <Route path="/robot">
+            <RobotPage />
           </Route>
         </Switch>
       </Router>
