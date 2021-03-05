@@ -13,7 +13,6 @@ const useWhitelist = () => {
 
   const checkJoined = useCallback(async () => {
     const isJoined = await basisCash.checkWhitelistJoined();
-    debugger
     setJoined(isJoined)
   }, [account]);
 

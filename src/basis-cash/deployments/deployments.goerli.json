@@ -1,4 +1,302 @@
 {
+  "FBGSwapper": {
+    "address": "0xdb209e6A72Cf064EFa97858016d184De4752160F",
+    "abi": [
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "basisCash_",
+            "type": "address"
+          },
+          {
+            "internalType": "address",
+            "name": "basisGovernance_",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOperator",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOperator",
+            "type": "address"
+          }
+        ],
+        "name": "OperatorTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "previousOwner",
+            "type": "address"
+          },
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+      },
+      {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": true,
+            "internalType": "address",
+            "name": "user",
+            "type": "address"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "fbcCount",
+            "type": "uint256"
+          },
+          {
+            "indexed": false,
+            "internalType": "uint256",
+            "name": "fbgCount",
+            "type": "uint256"
+          }
+        ],
+        "name": "SwapSuccessed",
+        "type": "event"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "fbcCount",
+            "type": "uint256"
+          }
+        ],
+        "name": "_caculateSwap",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "fbgCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "newLevel",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "newRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "newFBGLeftInLevel",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "basisCash",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "basisGovernance",
+        "outputs": [
+          {
+            "internalType": "contract IERC20",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "cashDestoryAddress",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "isOperator",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "operator",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+          {
+            "internalType": "address",
+            "name": "",
+            "type": "address"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "queryInfo",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "_swappedFBGCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_avaliableFBGCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_totalFBGCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_swappedFBCCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_swapRate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_currentLevel",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "_leftCountInLevel",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "startTime",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "fbcCount",
+            "type": "uint256"
+          }
+        ],
+        "name": "swap",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOperator_",
+            "type": "address"
+          }
+        ],
+        "name": "transferOperator",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "address",
+            "name": "newOwner",
+            "type": "address"
+          }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
+  },
   "Whitelist": {
     "address": "0x0A45A97b2a296F122Ff32a86945b47a77a610097",
     "abi": [

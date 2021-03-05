@@ -1,90 +1,47 @@
-import React, { useEffect, useMemo } from 'react';
-import styled from 'styled-components';
+import React, { useCallback, useMemo } from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import { useWallet } from 'use-wallet';
 
 import Button from '../../components/Button';
-import PageHeader from '../../components/PageHeader';
-import Spacer from '../../components/Spacer';
-import Harvest from './components/Harvest';
-import Stake from './components/Stake';
-import { Switch } from 'react-router-dom';
 import Page from '../../components/Page';
-import useRedeemOnBoardroom from '../../hooks/useRedeemOnBoardroom';
-import useStakedBalanceOnBoardroom from '../../hooks/useStakedBalanceOnBoardroom';
+import PageHeader from '../../components/PageHeader';
+import ExchangeCard from './components/ExchangeCard';
+import styled from 'styled-components';
+import Spacer from '../../components/Spacer';
+import useBondStats from '../../hooks/useBondStats';
+import useBasisCash from '../../hooks/useBasisCash';
 
+import { useTransactionAdder } from '../../state/transactions/hooks';
 import config from '../../config';
 import LaunchCountdown from '../../components/LaunchCountdown';
-import Stat from './components/Stat';
-import ProgressCountdown from './components/ProgressCountdown';
-import useCashPriceInEstimatedTWAP from '../../hooks/useCashPriceInEstimatedTWAP';
-import useTreasuryAmount from '../../hooks/useTreasuryAmount';
-import Humanize from 'humanize-plus';
-import { getBalance } from '../../utils/formatBalance';
-import useTreasuryAllocationTimes from '../../hooks/useTreasuryAllocationTimes';
-import Notice from '../../components/Notice';
-import useBoardroomVersion from '../../hooks/useBoardroomVersion';
-import moment from 'moment';
+import ExchangeStat from './components/ExchangeStat';
+import useTokenBalance from '../../hooks/useTokenBalance';
+import { getDisplayBalance } from '../../utils/formatBalance';
+import { BigNumber } from 'ethers';
+import useFBGSwapper from '../../hooks/useFBGSwapper';
 
 const Governance: React.FC = () => {
-  useEffect(() => window.scrollTo(0, 0));
-  const { account } = useWallet();
-  const { onRedeem } = useRedeemOnBoardroom();
-  const stakedBalance = useStakedBalanceOnBoardroom();
+  const { path } = useRouteMatch();
+  const { account, connect } = useWallet();
+  const basisCash = useBasisCash();
 
-  const cashStat = useCashPriceInEstimatedTWAP();
-  const treasuryAmount = useTreasuryAmount();
-  const scalingFactor = useMemo(
-    () => (cashStat ? Number(cashStat.priceInUsdt).toFixed(2) : null),
-    [cashStat],
-  );
-  const { prevAllocation, nextAllocation } = useTreasuryAllocationTimes();
+  const cashBalance = useTokenBalance(basisCash?.FBC);
+  const { swapperInfo, handleSwap } = useFBGSwapper();
 
-  const prevEpoch = useMemo(
-    () =>
-      nextAllocation.getTime() <= Date.now()
-        ? moment().utc().startOf('day').toDate()
-        : prevAllocation,
-    [prevAllocation, nextAllocation],
-  );
-  const nextEpoch = useMemo(() => moment(prevEpoch).add(1, 'days').toDate(), [prevEpoch]);
+  const getRateDes = (rate: BigNumber) => {
+    // console.log("rate" + rate);
+    let rateNumber = rate ? 10000 / rate.toNumber() : 0;
+    return (`1${basisCash.FBC.symbol} = ` + rateNumber + `${basisCash.FBG.symbol}`);
+  }
 
-  const boardroomVersion = useBoardroomVersion();
-  const usingOldBoardroom = boardroomVersion !== 'latest';
-  const migrateNotice = useMemo(() => {
-    if (boardroomVersion === 'v2') {
-      return (
-        <StyledNoticeWrapper>
-          <Notice color="green">
-            <b>Please Migrate into New Boardroom</b>
-            <br />
-            The boardroom upgrade was successful. Please settle and withdraw your stake from the
-            legacy boardroom, then stake again on the new boardroom contract{' '}
-            <b>to continue earning BAC seigniorage.</b>
-          </Notice>
-        </StyledNoticeWrapper>
-      );
-    }
-    return <></>;
-  }, [boardroomVersion]);
+  const getLevelDes = (currentLevel: BigNumber, totoalLevel: BigNumber,) => {
+    // console.log("rate" + rate);
 
-  const isLaunched = Date.now() >= config.boardroomLaunchesAt.getTime();
-  if (!isLaunched) {
-    return (
-      <Switch>
-        <Page>
-          <PageHeader
-            // icon={'🤝'}
-            title="Join the Boardroom"
-            subtitle="Deposit Fire Basis Shares and earn inflationary rewards"
-          />
-          <LaunchCountdown
-            deadline={config.boardroomLaunchesAt}
-            description="How does the boardroom work?"
-            descriptionLink="https://docs.basis.cash/mechanisms/stabilization-mechanism#expansionary-policy"
-          />
-        </Page>
-      </Switch>
-    );
+    return (`` + currentLevel.toString() + ` / ` + totoalLevel.toString());
+  }
+
+  const getLevelCountDes = (levelLeft: BigNumber, levelCount: BigNumber) => {
+    return (`` + getDisplayBalance(levelLeft) + ` / ` + levelCount.toString());
   }
 
   return (
@@ -92,118 +49,65 @@ const Governance: React.FC = () => {
       <Page>
         {!!account ? (
           <>
-            <PageHeader
-              // icon={'🤝'}
-              title="Join the Boardroom"
-              subtitle="Deposit Fire Basis Shares and earn inflationary rewards"
-            />
-            {migrateNotice}
-            <StyledHeader>
-              <ProgressCountdown
-                base={prevEpoch}
-                deadline={nextEpoch}
-                description="Next Epoch"
+            <Route exact path={path}>
+              <PageHeader
+                // icon={'🏦'}
+                title="Get Governance"
+                subtitle="Swap FBC to FBG"
               />
-              <Stat
-                icon="💵"
-                title={cashStat ? `$${cashStat.priceInUsdt}` : '-'}
-                description="FBC Price (TWAP)"
-              />
-              <Stat
-                icon="🚀"
-                title={scalingFactor ? `x${scalingFactor}` : '-'}
-                description="Scaling Factor"
-              />
-              <Stat
-                icon="💰"
-                title={
-                  treasuryAmount
-                    ? `~$${Humanize.compactInteger(getBalance(treasuryAmount), 2)}`
-                    : '-'
-                }
-                description="Treasury Amount"
-              />
-            </StyledHeader>
-            <StyledBoardroom>
-              <StyledCardsWrapper>
-                <StyledCardWrapper>
-                  <Harvest />
-                </StyledCardWrapper>
-                <Spacer />
-                <StyledCardWrapper>
-                  <Stake />
-                </StyledCardWrapper>
-              </StyledCardsWrapper>
-              <Spacer size="lg" />
-              {!usingOldBoardroom && (
-                // for old boardroom users, the button is displayed in Stake component
-                <>
-                  <div>
-                    <Button
-                      disabled={stakedBalance.eq(0)}
-                      onClick={onRedeem}
-                      text="Settle & Withdraw"
-                    />
-                  </div>
-                  <Spacer size="lg" />
-                </>
-              )}
-            </StyledBoardroom>
+            </Route>
+            <StyledBond>
+              <StyledStatsWrapper>
+                <ExchangeStat
+                  tokenName="FBC"
+                  description="Fire Basisc Cash Destroyed"
+                  count={getDisplayBalance(swapperInfo ? swapperInfo.swappedFBCCount : BigNumber.from(0))}
+                />
+                <Spacer size="md" />
+                <ExchangeStat
+                  tokenName="FBG"
+                  description="Fire Basisc Governance Swapped"
+                  count={getDisplayBalance(swapperInfo ? swapperInfo.swappedFBGCount : BigNumber.from(0))}
+                />
+              </StyledStatsWrapper>
+              <StyledCardWrapper>
+                <ExchangeCard
+                  action="Swap "
+                  fromToken={basisCash.FBC}
+                  fromTokenName="Fire Basis Cash"
+                  toToken={basisCash.FBG}
+                  toTokenName="Fire Basis Governance"
+                  priceDesc={`${getDisplayBalance(cashBalance)} FBC Available`}
+                  onExchange={handleSwap}
+                  disabled={cashBalance.isZero()}
+                  disabledDescription={"swap"}
+                  rateDesc={getRateDes(swapperInfo ? swapperInfo.swapRate : null)}
+                  levelDesc={getLevelDes(swapperInfo ? swapperInfo.currentLevel : BigNumber.from(0), BigNumber.from(100))}
+                  levelCountDesc={getLevelCountDes(swapperInfo ? swapperInfo.leftCountInLevel : BigNumber.from(0), BigNumber.from(10000))}
+                />
+              </StyledCardWrapper>
+            </StyledBond>
           </>
         ) : (
-          <UnlockWallet />
-        )}
+            <div
+              style={{
+                alignItems: 'center',
+                display: 'flex',
+                flex: 1,
+                justifyContent: 'center',
+              }}
+            >
+              <Button onClick={() => connect('injected')} text="Unlock Wallet" />
+            </div>
+          )}
       </Page>
     </Switch>
   );
 };
 
-const UnlockWallet = () => {
-  const { connect } = useWallet();
-  return (
-    <Center>
-      <Button onClick={() => connect('injected')} text="Unlock Wallet" />
-    </Center>
-  );
-};
-
-const StyledBoardroom = styled.div`
-  align-items: center;
+const StyledBond = styled.div`
   display: flex;
-  flex-direction: column;
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const StyledHeader = styled.div`
-  justify-content: center;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: ${(props) => props.theme.spacing[5]}px;
-  width: 960px;
-
-  > * {
-    flex: 1;
-    height: 84px;
-    margin: 0 ${(props) => props.theme.spacing[2]}px;
-  }
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    width: 100%;
-  }
-`;
-
-const StyledNoticeWrapper = styled.div`
-  width: 768px;
-  margin-top: -20px;
-  margin-bottom: 40px;
-`;
-
-const StyledCardsWrapper = styled.div`
-  display: flex;
-  width: 600px;
+  width: 900px;
   @media (max-width: 768px) {
     width: 100%;
     flex-flow: column nowrap;
@@ -220,11 +124,16 @@ const StyledCardWrapper = styled.div`
   }
 `;
 
-const Center = styled.div`
+const StyledStatsWrapper = styled.div`
   display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
+  flex: 0.8;
+  margin: 0 20px;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    width: 80%;
+    margin: 16px 0;
+  }
 `;
 
 export default Governance;

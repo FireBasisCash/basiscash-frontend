@@ -1,6 +1,6 @@
 import { Fetcher, Route, Token } from '@uniswap/sdk';
 import { Configuration } from './config';
-import { ContractName, TokenStat, TreasuryAllocationTime } from './types';
+import { ContractName, FBGSwapperInfo, TokenStat, TreasuryAllocationTime } from './types';
 import { BigNumber, Contract, ethers, Overrides } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
@@ -33,6 +33,7 @@ export class BasisCash {
   FBS: ERC20;
   FBB: ERC20;
   FBG: ERC20;
+
 
   constructor(cfg: Configuration) {
     const { deployments, externalTokens } = cfg;
@@ -104,6 +105,36 @@ export class BasisCash {
 
   get isUnlocked(): boolean {
     return !!this.myAccount;
+  }
+
+  get FBGSwapper(): Contract {
+    return this.contracts["FBGSwapper"];
+  }
+
+  async getFBGSwapperInfo(): Promise<FBGSwapperInfo> {
+    // const decimals = BigNumber.from(10).pow(18);
+
+    // const cashPrice: BigNumber = await this.getBondOraclePriceInLastTWAP();
+    // const bondPrice = cashPrice.pow(2).div(decimals);
+
+    // debugger
+    const info = await this.FBGSwapper.queryInfo();
+
+    return {
+      swappedFBGCount: info._swappedFBGCount,
+      avaliableFBGCount: info._swappedFBGCount,
+      totalFBGCount: info._totalFBGCount,
+      swappedFBCCount: info._swappedFBCCount,
+      swapRate: info._swapRate,
+      currentLevel: info._currentLevel,
+      leftCountInLevel: info._leftCountInLevel
+    };
+  }
+
+  async swapFBG(amount: BigNumber): Promise<TransactionResponse> {
+    const pool = this.FBGSwapper;
+    const gas = await pool.estimateGas.swap(amount);
+    return await pool.swap(amount, this.gasOptions(gas));
   }
 
   gasOptions(gas: BigNumber): Overrides {
@@ -498,8 +529,6 @@ export class BasisCash {
     const prevAllocation = new Date(nextAllocation.getTime() - period.toNumber() * 1000);
     return { prevAllocation, nextAllocation };
   }
-
-
 
   async checkWhitelistJoined(): Promise<Boolean> {
 

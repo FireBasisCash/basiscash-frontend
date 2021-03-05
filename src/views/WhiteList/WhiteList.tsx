@@ -15,7 +15,8 @@ const WhiteList: React.FC = () => {
   const { account, connect } = useWallet();
 
   let title = "Whitelist";
-  let subTitle = "Join FireBasisCash Whitelist and get FBC airdrop ";
+  let subTitle = 
+  "We are about to start the genesis mining, and the whitelisting activity are currently underway.If you want to join our whitelist, please submit your Heco address (non-ERC20 address, you can go to Huobi Wallet official website huobiwallet.com to download and create an address) The earliest 100 submitters will get the opportunity to participate and may receive certain rewards.Thank you !";
 
   return (
     <Switch>
@@ -26,6 +27,9 @@ const WhiteList: React.FC = () => {
           subtitle={subTitle}
         />
         <Center>
+          <StyledText>
+            
+          </StyledText>
           {!!account ? (
             joined ? <StyledText>You have joined whitelist already</StyledText> : <Button onClick={joinWhitelist} text="Join Whitelist" />
           ) : (

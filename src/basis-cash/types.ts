@@ -1,4 +1,5 @@
 import { TransactionResponse } from '@ethersproject/providers';
+import { BigNumber } from 'ethers';
 import ERC20 from './ERC20';
 
 export type ContractName = string;
@@ -10,11 +11,11 @@ export interface BankInfo {
   earnTokenName: ContractName;
   sort: number;
   finished: boolean;
-  accelerator : boolean;
+  accelerator: boolean;
   acceleratorTokenName: ContractName;
 }
 
-export interface Bank extends  BankInfo {
+export interface Bank extends BankInfo {
   address: string;
   depositToken: ERC20;
   earnToken: ERC20;
@@ -32,7 +33,24 @@ export type TreasuryAllocationTime = {
 }
 
 export type Web3TXResponse = {
-  error:Error,
-  summary:string,
-  data:any
+  error: Error,
+  summary: string,
+  data: any
 }
+
+export type FBGSwapperInfo = {
+  swappedFBGCount: BigNumber;
+  avaliableFBGCount: BigNumber;
+  totalFBGCount: BigNumber;
+  swappedFBCCount: BigNumber;
+  swapRate: BigNumber;
+  currentLevel: BigNumber;
+  leftCountInLevel: BigNumber;
+};
+
+export type PoolProfitRate = {
+  tvl: string;
+  apy: string;
+  apd: string;
+  totalCount: string;
+};
