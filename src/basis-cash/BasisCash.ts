@@ -39,13 +39,13 @@ export class BasisCash {
     const provider = getDefaultProvider();
     this.web3 = cfg.defaultProvider ? new Web3Object(cfg.defaultProvider) : new Web3Object();
 
-
     // loads contracts from deployments
     this.contracts = {};
     this.web3Contracts = {};
     for (const [name, deployment] of Object.entries(deployments)) {
       this.contracts[name] = new Contract(deployment.address, deployment.abi, provider);
       // this.web3Contracts[name] = new Web3Contract(this.web3, deployment.abi, deployment.address);
+      // console.log(name);
     }
     this.externalTokens = {};
     for (const [symbol, [address, decimal]] of Object.entries(externalTokens)) {
@@ -85,6 +85,7 @@ export class BasisCash {
 
     for (const [name, deployment] of Object.entries(this.config.deployments)) {
       this.web3Contracts[name] = new Web3Contract(this.web3, deployment.abi, deployment.address);
+      console.log(name);
     }
 
     const tokens = [this.FBC, this.FBS, this.FBB, this.FBG, ...Object.values(this.externalTokens)];
@@ -496,5 +497,64 @@ export class BasisCash {
     const nextAllocation = new Date(nextEpochTimestamp.mul(1000).toNumber());
     const prevAllocation = new Date(nextAllocation.getTime() - period.toNumber() * 1000);
     return { prevAllocation, nextAllocation };
+  }
+
+
+
+  async checkWhitelistJoined(): Promise<Boolean> {
+
+    const pool = this.contracts["Whitelist"];
+    return await pool.userJoined(this.myAccount);
+  }
+
+  async joinWhitelist(): Promise<TransactionResponse> {
+
+    // const pool = this.contracts[poolName];
+    // const gas = await pool.estimateGas.withdraw(amount);
+    // return await pool.withdraw(amount, this.gasOptions(gas));
+    // debugger
+
+    // const pool = this.contracts["Whitelist"];
+    // const gas = await pool.estimateGas.join();
+    // return await pool.join();
+
+    debugger
+    const contract = this.web3Contracts["Whitelist"].contract;
+    const value = "0";
+    await contract.methods
+      .join()
+      .send({
+        to: contract.options.address,
+        from: this.myAccount,
+        value: value
+      })
+      .once('transactionHash', (txHash: string) => {
+        console.log("transactionHash:" + txHash);
+        resolve();
+      })
+      .once('receipt', (data: any) => {
+        console.log(JSON.stringify(data));
+        let content = {
+          txn: {
+            hash: data.transactionHash,
+            success: true,
+            summary: "Join Whitelist"
+          }
+        }
+        addPopup({ content });
+        // onReceipt(data,summary);
+        //dispatch(addTransaction({ hash, from: this.myAccount, this.config.  , approval, summary }));
+      })
+      .on('error', (err: Error) => {
+        // onError(err, summary);
+        let content = {
+          error: {
+            message: err.message,
+            stack: err.stack
+          }
+        }
+        addPopup({ content });
+      });
+    return;
   }
 }
