@@ -5,9 +5,10 @@ interface LabelProps {
   text?: string;
   variant?: 'primary' | 'secondary' | 'normal';
   color?: string;
+  align?: string;
 }
 
-const Label: React.FC<LabelProps> = ({ text, variant = 'secondary', color: customColor }) => {
+const Label: React.FC<LabelProps> = ({ text, variant = 'secondary', color: customColor, align }) => {
   const { color } = useContext(ThemeContext);
 
   let labelColor: string;
@@ -25,16 +26,18 @@ const Label: React.FC<LabelProps> = ({ text, variant = 'secondary', color: custo
     }
   }
   return (
-    <StyledLabel color={labelColor}>{text}</StyledLabel>
+    <StyledLabel color={labelColor} align={align} >{text}</StyledLabel>
   );
 }
 
 interface StyledLabelProps {
   color: string;
+  align: string;
 }
 
 const StyledLabel = styled.div<StyledLabelProps>`
   color: ${props => props.color};
+  text-align: ${props => props.align};
 `
 
 export default Label

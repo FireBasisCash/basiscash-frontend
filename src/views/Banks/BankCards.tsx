@@ -101,23 +101,19 @@ const BankCard: React.FC<BankCardProps> = ({ bank }) => {
             <StyledTitle>{bank.name}</StyledTitle>
 
             <StyledDetailContainer>
-              <StyledDetailTitle>Totally Supply: </StyledDetailTitle>
-              <StyledDetailContent>{profitRate ? profitRate.totalCount : 'loading' + `${bank.depositTokenName.toUpperCase()}`} </StyledDetailContent>
+              <StyledDetailTitle>Totally Supply: <StyledDetailContent>{profitRate ? profitRate.totalCount : 'loading'} </StyledDetailContent></StyledDetailTitle>
             </StyledDetailContainer>
 
             <StyledDetailContainer>
-              <StyledDetailTitle>TVL: </StyledDetailTitle>
-              <StyledDetailContent> {profitRate ? profitRate.tvl : 'loading'} </StyledDetailContent>
+              <StyledDetailTitle>TVL: <StyledDetailContent> {profitRate ? profitRate.tvl : 'loading'} </StyledDetailContent></StyledDetailTitle>
             </StyledDetailContainer>
 
             <StyledDetailContainer>
-              <StyledDetailTitle>APY: </StyledDetailTitle>
-              <StyledDetailContent>{profitRate ? profitRate.apy : 'loading'} </StyledDetailContent>
+              <StyledDetailTitle>APY: <StyledDetailContent>{profitRate ? <StyledDetailPrice>{profitRate.apy}</StyledDetailPrice> : 'loading'} </StyledDetailContent></StyledDetailTitle>
             </StyledDetailContainer>
 
-            <StyledDetailContainer>
-              <StyledDetailTitle>APD: </StyledDetailTitle>
-              <StyledDetailContent>{profitRate ? profitRate.apd : 'loading'}</StyledDetailContent>
+            <StyledDetailContainer style={{marginBottom:22}}>
+              <StyledDetailTitle>APD: <StyledDetailContent>{profitRate ? <StyledDetailPrice>{profitRate.apd}</StyledDetailPrice> : 'loading'}</StyledDetailContent></StyledDetailTitle>
             </StyledDetailContainer>
             <Button text="Select" to={`/bank/${bank.contract}`} />
           </StyledContent>
@@ -189,7 +185,7 @@ const StyledTitle = styled.h4`
   font-size: 24px;
   font-weight: 700;
   text-align: center;
-  margin: ${(props) => props.theme.spacing[2]}px 0 0;
+  margin: ${(props) => props.theme.spacing[2]}px 0 ${(props) => props.theme.spacing[2]}px;
   padding: 0;
 `;
 
@@ -213,16 +209,22 @@ const StyledDetails = styled.div`
 const StyledDetailContainer = styled.div`
   color: #5B6C94;
   width:100%;
+  margin-bottom: 10px;
 `;
 
 const StyledDetailTitle = styled.div`
   text-align:left;
-  width:200px;
+  width:100%;
 `;
 
 const StyledDetailContent = styled.div`
-  width:100%;
-  text-align:right;
+  float: right;
+`;
+
+const StyledDetailPrice = styled.div`
+  font-weight: 900;
+  color: #031D5B;
+  font-size: 16px;
 `;
 
 const StyledInactiveNoticeContainer = styled.div`

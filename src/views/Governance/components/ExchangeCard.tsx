@@ -16,6 +16,7 @@ import useTokenBalance from '../../../hooks/useTokenBalance';
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useCatchError from '../../../hooks/useCatchError';
 import { FBGSwapperInfo } from '../../../basis-cash/types';
+import { AlignCenter } from 'react-feather';
 
 interface ExchangeCardProps {
   action: string;
@@ -79,7 +80,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
               <StyledCardIcon>
                 <TokenSymbol symbol={fromToken.symbol} size={54} />
               </StyledCardIcon>
-              <Label text={fromTokenName} variant="normal" />
+              <Label text={fromTokenName} variant="normal" align="center" />
             </StyledToken>
             <StyledExchangeArrow>
               <FontAwesomeIcon icon={faArrowRight} />
@@ -88,7 +89,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
               <StyledCardIcon>
                 <TokenSymbol symbol={toToken.symbol} size={54} />
               </StyledCardIcon>
-              <Label text={toTokenName} variant="normal" />
+              <Label text={toTokenName} variant="normal" align="center" />
             </StyledToken>
           </StyledExchanger>
           <StyledDescContainer>

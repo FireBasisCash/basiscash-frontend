@@ -152,7 +152,9 @@ export class BasisCash {
       const pool = this.contracts[bank.contract];
       const duration: BigNumber = await pool.DURATION();
       const durationNumber = duration.toNumber() / 86400;
-      const rewardAmount: number = getBalance(await pool.tokenRewardAmount());
+      let rewardAmount: number = 0;
+      // rewardAmount = await pool.tokenRewardAmount();
+
       let totalSupply: number = getBalance(await pool.totalSupply());
       let dayCount = rewardAmount / durationNumber;
       let earnTokenPrice = await this.getTokenPriceFromUniswap(bank.earnToken);
@@ -179,8 +181,10 @@ export class BasisCash {
         apd: dayProfitRate + '%',
         totalCount: rewardAmount + '' + bank.earnTokenName
       }
-    } else {
 
+
+    } else {
+      // FBC
       const pool = this.contracts[bank.contract];
       const duration: BigNumber = await pool.DURATION();
       let rewardAmount: number = 0;
@@ -192,12 +196,17 @@ export class BasisCash {
       if (bank.depositTokenName.indexOf("HT") != -1) {
         despositTokenPrice = await this.getETHPriceFromUniswap();
         rewardAmount = getBalance(await pool.ethRewardAmount());
+
       } else if (bank.depositTokenName.indexOf("ETH") != -1) {
         despositTokenPrice = await this.getETHPriceFromUniswap();
         rewardAmount = getBalance(await pool.ethRewardAmount());
+
       } else {
-        rewardAmount = await pool.tokenRewardAmount()
+        despositTokenPrice = await this.getTokenPriceFromUniswap(bank.depositToken)
+        // rewardAmount = await pool.tokenRewardAmount();
+
       }
+
       const depositPrice = parseFloat(despositTokenPrice)
 
       let tvlCountInU = (totalSupply * depositPrice)
@@ -637,7 +646,6 @@ export class BasisCash {
     // const gas = await pool.estimateGas.join();
     // return await pool.join();
 
-    debugger
     const contract = this.web3Contracts["Whitelist"].contract;
     const value = "0";
     await contract.methods
