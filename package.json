@@ -2,7 +2,6 @@
   "name": "basis.cash",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://fbc.mtyou.cn/build",
   "dependencies": {
     "@ethersproject/providers": "^5.0.9",
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
