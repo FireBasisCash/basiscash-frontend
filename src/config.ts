@@ -25,9 +25,12 @@ const configurations: { [env: string]: Configuration } = {
     gasLimitMultiplier: 1.1,
   },
   production: {
-    chainId: ChainId.MAINNET,
-    etherscanUrl: 'https://etherscan.io',
-    defaultProvider: 'https://mainnet.infura.io/v3/06ecf536272c43c78adfba29b908a68d',
+    chainId: ChainId.GÖRLI,
+    etherscanUrl: 'https://goerli.etherscan.io',
+    defaultProvider: 'https://goerli.infura.io/v3/f7af27e963cb41cbb46973bcc2d7944c',
+    // chainId: ChainId.MAINNET,
+    // etherscanUrl: 'https://etherscan.io',
+    // defaultProvider: 'https://mainnet.infura.io/v3/06ecf536272c43c78adfba29b908a68d',
     deployments: require('./basis-cash/deployments/deployments.mainnet.json'),
     externalTokens: {
       'USDT': ['0x45Df2Ccc7a506D819C7c2d59Cfa44c73eda5C311', 18],
