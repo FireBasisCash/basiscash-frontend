@@ -1,11 +1,11 @@
-import { Fetcher, Route, Token } from '@uniswap/sdk';
+import { Fetcher, Route, Token, WETH } from '@uniswap/sdk';
 import { Configuration } from './config';
-import { ContractName, FBGSwapperInfo, TokenStat, TreasuryAllocationTime } from './types';
+import { Bank, BankInfo, ContractName, FBGSwapperInfo, PoolProfitRate, TokenStat, TreasuryAllocationTime } from './types';
 import { BigNumber, Contract, ethers, Overrides } from 'ethers';
 import { decimalToBalance } from './ether-utils';
 import { TransactionResponse } from '@ethersproject/providers';
 import ERC20 from './ERC20';
-import { getDisplayBalance } from '../utils/formatBalance';
+import { getBalance, getDisplayBalance } from '../utils/formatBalance';
 import { getDefaultProvider } from '../utils/provider';
 import IUniswapV2PairABI from './IUniswapV2Pair.abi.json';
 import Web3Object from 'web3';
@@ -145,6 +145,78 @@ export class BasisCash {
     };
   }
 
+  async getPoolProfit(bank: Bank): Promise<PoolProfitRate> {
+
+    if (bank.earnTokenName == "FBS") {
+
+      const pool = this.contracts[bank.contract];
+      const duration: BigNumber = await pool.DURATION();
+      const durationNumber = duration.toNumber() / 86400;
+      const rewardAmount: number = getBalance(await pool.tokenRewardAmount());
+      let totalSupply: number = getBalance(await pool.totalSupply());
+      let dayCount = rewardAmount / durationNumber;
+      let earnTokenPrice = await this.getTokenPriceFromUniswap(bank.earnToken);
+      let despositTokenPrice = "1";
+      if (bank.depositTokenName.indexOf("FBC") != -1) {
+        despositTokenPrice = await this.getTokenPriceFromUniswap(this.FBC);
+      } else if (bank.depositTokenName.indexOf("FBS") != -1) {
+        despositTokenPrice = await this.getTokenPriceFromUniswap(this.FBS);
+      } else if (bank.depositTokenName.indexOf("FBG") != -1) {
+        despositTokenPrice = await this.getTokenPriceFromUniswap(this.FBG);
+      }
+
+      const depositPrice = parseFloat(despositTokenPrice) + 1;
+
+      let tvlCountInU = (totalSupply * depositPrice)
+      let dayEarnCountInU = dayCount * parseFloat(earnTokenPrice);
+
+      let dayProfitRate = (100 * dayEarnCountInU / tvlCountInU).toFixed(2);
+      let yearProfitRate = (365 * 100 * dayEarnCountInU / tvlCountInU).toFixed(2);
+      // const  
+      return {
+        tvl: tvlCountInU.toFixed(2) + 'USDT',
+        apy: yearProfitRate + '%',
+        apd: dayProfitRate + '%',
+        totalCount: rewardAmount + '' + bank.earnTokenName
+      }
+    } else {
+
+      const pool = this.contracts[bank.contract];
+      const duration: BigNumber = await pool.DURATION();
+      let rewardAmount: number = 0;
+      let totalSupply: number = getBalance(await pool.totalSupply());
+      let dayCount = rewardAmount / duration.toNumber();
+      let earnTokenPrice = await this.getTokenPriceFromUniswap(bank.earnToken);
+      let despositTokenPrice = "1";
+
+      if (bank.depositTokenName.indexOf("HT") != -1) {
+        despositTokenPrice = await this.getETHPriceFromUniswap();
+        rewardAmount = getBalance(await pool.ethRewardAmount());
+      } else if (bank.depositTokenName.indexOf("ETH") != -1) {
+        despositTokenPrice = await this.getETHPriceFromUniswap();
+        rewardAmount = getBalance(await pool.ethRewardAmount());
+      } else {
+        rewardAmount = await pool.tokenRewardAmount()
+      }
+      const depositPrice = parseFloat(despositTokenPrice)
+
+      let tvlCountInU = (totalSupply * depositPrice)
+      let dayEarnCountInU = dayCount * parseFloat(earnTokenPrice);
+      let dayProfitRate = (100 * dayEarnCountInU / tvlCountInU).toFixed(2);
+      let yearProfitRate = (365 * 100 * dayEarnCountInU / tvlCountInU).toFixed(2);
+
+
+      // const  
+      return {
+        tvl: tvlCountInU.toFixed(2) + 'USDT',
+        apy: yearProfitRate + '%',
+        apd: dayProfitRate + '%',
+        totalCount: rewardAmount + '' + bank.earnTokenName
+      }
+
+    }
+  }
+
   /**
    * @returns FBSis Cash (FBC) stats from Uniswap.
    * It may differ from the FBC price used on Treasury (which is calculated in TWAP)
@@ -220,6 +292,24 @@ export class BasisCash {
     } catch (err) {
 
       console.error(`Failed to fetch token price of ${tokenContract.symbol}: ${err}`);
+    }
+  }
+
+  async getETHPriceFromUniswap(): Promise<string> {
+    await this.provider.ready;
+
+    const { chainId } = this.config;
+    const { USDT } = this.config.externalTokens;
+    const usdt = new Token(chainId, USDT[0], 18);
+    const token = WETH[chainId];
+
+    try {
+      const usdtToToken = await Fetcher.fetchPairData(usdt, token, this.provider);
+      const priceInUsdt = new Route([usdtToToken], token);
+      return priceInUsdt.midPrice.toSignificant(3);
+    } catch (err) {
+
+      console.error(`Failed to fetch token price of ETH: ${err}`);
     }
   }
 

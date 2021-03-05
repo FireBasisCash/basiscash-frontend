@@ -3,26 +3,26 @@ import { BigNumber } from 'ethers';
 import useBasisCash from './useBasisCash';
 import { ContractName } from '../basis-cash';
 import config from '../config';
+import { Bank, PoolProfitRate } from '../basis-cash/types';
 
-const useProfitRate = (poolName: ContractName) => {
-  const [balance, setBalance] = useState(BigNumber.from(0));
+const useProfitRate = (bank:Bank) => {
+  const [profitRate, setProfitRate] = useState<PoolProfitRate>();
   const basisCash = useBasisCash();
 
-  const fetchBalance = useCallback(async () => {
-    const balance = await basisCash.earnedFromBank(poolName, basisCash.myAccount);
-    setBalance(balance);
-  }, [basisCash?.isUnlocked, poolName]);
+  const fetchProfit = useCallback(async () => {
+    setProfitRate(await basisCash.getPoolProfit(bank));
+  }, [basisCash?.isUnlocked, bank]);
 
   useEffect(() => {
     if (basisCash?.isUnlocked) {
-      fetchBalance().catch((err) => console.error(err.stack));
+      fetchProfit().catch((err) => console.error(err.stack));
 
-      const refreshBalance = setInterval(fetchBalance, config.refreshInterval);
+      const refreshBalance = setInterval(fetchProfit, config.refreshInterval);
       return () => clearInterval(refreshBalance);
     }
-  }, [basisCash?.isUnlocked, poolName, basisCash]);
+  }, [basisCash?.isUnlocked, bank, basisCash]);
 
-  return balance;
+  return profitRate;
 };
 
 export default useProfitRate;

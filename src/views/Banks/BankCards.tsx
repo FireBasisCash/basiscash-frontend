@@ -10,6 +10,7 @@ import CardIcon from '../../components/CardIcon';
 import useBanks from '../../hooks/useBanks';
 import TokenSymbol from '../../components/TokenSymbol';
 import Notice from '../../components/Notice';
+import useProfitRate from '../../hooks/useProfitRate';
 
 const BankCards: React.FC = () => {
   const [banks] = useBanks();
@@ -82,15 +83,15 @@ interface BankCardProps {
 }
 
 const BankCard: React.FC<BankCardProps> = ({ bank }) => {
-  console.log(bank);
+  const profitRate = useProfitRate(bank);
   return (
     <StyledCardWrapper>
       {bank.depositTokenName.includes('LP') &&
         (bank.depositTokenName.includes('BAS_DAI') ? (
           <StyledCardSuperAccent />
         ) : (
-          <StyledCardAccent />
-        ))}
+            <StyledCardAccent />
+          ))}
       <Card>
         <CardContent>
           <StyledContent>
@@ -98,10 +99,26 @@ const BankCard: React.FC<BankCardProps> = ({ bank }) => {
               <TokenSymbol symbol={bank.depositTokenName} size={54} />
             </CardIcon>
             <StyledTitle>{bank.name}</StyledTitle>
-            <StyledDetails>
-              <StyledDetail>Deposit {bank.depositTokenName.toUpperCase()}</StyledDetail>
-              <StyledDetail>Earn {` ${bank.earnTokenName}`}</StyledDetail>
-            </StyledDetails>
+
+            <StyledDetailContainer>
+              <StyledDetailTitle>Totally Supply: </StyledDetailTitle>
+              <StyledDetailContent>{profitRate ? profitRate.totalCount : 'loading' + `${bank.depositTokenName.toUpperCase()}`} </StyledDetailContent>
+            </StyledDetailContainer>
+
+            <StyledDetailContainer>
+              <StyledDetailTitle>TVL: </StyledDetailTitle>
+              <StyledDetailContent> {profitRate ? profitRate.tvl : 'loading'} </StyledDetailContent>
+            </StyledDetailContainer>
+
+            <StyledDetailContainer>
+              <StyledDetailTitle>APY: </StyledDetailTitle>
+              <StyledDetailContent>{profitRate ? profitRate.apy : 'loading'} </StyledDetailContent>
+            </StyledDetailContainer>
+
+            <StyledDetailContainer>
+              <StyledDetailTitle>APD: </StyledDetailTitle>
+              <StyledDetailContent>{profitRate ? profitRate.apd : 'loading'}</StyledDetailContent>
+            </StyledDetailContainer>
             <Button text="Select" to={`/bank/${bank.contract}`} />
           </StyledContent>
         </CardContent>
@@ -193,8 +210,19 @@ const StyledDetails = styled.div`
   text-align: center;
 `;
 
-const StyledDetail = styled.div`
+const StyledDetailContainer = styled.div`
   color: #5B6C94;
+  width:100%;
+`;
+
+const StyledDetailTitle = styled.div`
+  text-align:left;
+  width:200px;
+`;
+
+const StyledDetailContent = styled.div`
+  width:100%;
+  text-align:right;
 `;
 
 const StyledInactiveNoticeContainer = styled.div`
