@@ -4,4 +4,5 @@ export interface OverviewData {
   cash?: TokenStat;
   bond?: TokenStat;
   share?: TokenStat;
+  governance?: TokenStat;
 }

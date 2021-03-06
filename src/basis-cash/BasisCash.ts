@@ -156,6 +156,7 @@ export class BasisCash {
       // rewardAmount = await pool.tokenRewardAmount();
 
       let totalSupply: number = getBalance(await pool.totalSupply());
+
       let dayCount = rewardAmount / durationNumber;
       let earnTokenPrice = await this.getTokenPriceFromUniswap(bank.earnToken);
       let despositTokenPrice = "1";
@@ -166,6 +167,16 @@ export class BasisCash {
       } else if (bank.depositTokenName.indexOf("FBG") != -1) {
         despositTokenPrice = await this.getTokenPriceFromUniswap(this.FBG);
       }
+
+      let tokenAmount: BigNumber = await pool.tokenRewardAmount();
+      const acceleratorAmount: BigNumber = await pool.acceleratorRewardAmount();
+      tokenAmount = acceleratorAmount ? tokenAmount.add(acceleratorAmount) : tokenAmount;
+      if (tokenAmount.isNegative()) {
+        tokenAmount = BigNumber.from(0);
+      }
+
+      rewardAmount = getBalance(tokenAmount);
+
 
       const depositPrice = parseFloat(despositTokenPrice) + 1;
 
@@ -202,7 +213,13 @@ export class BasisCash {
           despositTokenPrice = await this.getTokenPriceFromUniswap(bank.depositToken)
         }
 
-        rewardAmount = getBalance(await pool.tokenRewardAmount());
+        let tokenAmount: BigNumber = await pool.tokenRewardAmount();
+        if (bank.depositTokenName.indexOf("FBG") == -1) {
+          const acceleratorAmount: BigNumber = await pool.acceleratorRewardAmount();
+          tokenAmount = tokenAmount.add(acceleratorAmount);
+        }
+
+        rewardAmount = getBalance(tokenAmount);
 
       }
 
@@ -282,6 +299,15 @@ export class BasisCash {
     return {
       priceInUsdt: await this.getTokenPriceFromUniswap(this.FBS),
       totalSupply: await this.FBS.displayedTotalSupply(),
+    };
+  }
+
+  async getGovernanceStat(): Promise<TokenStat> {
+    const info = await this.FBGSwapper.queryInfo();
+
+    return {
+      priceInUsdt: await this.getTokenPriceFromUniswap(this.FBG),
+      totalSupply: getDisplayBalance(info._swappedFBGCount)
     };
   }
 

@@ -12,18 +12,19 @@ import Notice from '../../components/Notice';
 const Home: React.FC = () => {
   const basisCash = useBasisCash();
 
-  const [{ cash, bond, share }, setStats] = useState<OverviewData>({});
+  const [{ cash, bond, share, governance }, setStats] = useState<OverviewData>({});
   const fetchStats = useCallback(async () => {
-    const [cash, share] = await Promise.all([
+    const [cash, share, governance] = await Promise.all([
       basisCash.getCashStatFromUniswap(),
       // basisCash.getBondStat(),
       basisCash.getShareStat(),
+      basisCash.getGovernanceStat()
     ]);
 
     if (Date.now() < config.bondLaunchesAt.getTime()) {
       bond.priceInUsdt = '-';
     }
-    setStats({ cash, bond, share });
+    setStats({ cash, bond, share, governance });
   }, [basisCash, setStats]);
 
   useEffect(() => {
@@ -62,13 +63,13 @@ const Home: React.FC = () => {
           stat={share}
         />
         <Spacer size="lg" />
-        {/* <HomeCard
-          title="Basis Bond"
-          symbol="BAB"
+        <HomeCard
+          title="Fire Basis Governance"
+          symbol="FBG"
           color="#5B6C94"
-          address={bondAddr}
-          stat={bond}
-        /> */}
+          address={governanceAddr}
+          stat={governance}
+        />
       </CardWrapper>
     </Page>
   );
