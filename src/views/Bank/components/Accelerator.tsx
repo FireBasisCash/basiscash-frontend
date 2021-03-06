@@ -74,7 +74,7 @@ const Accelerator: React.FC<AcceleratorProps> = ({ bank }) => {
               <TokenSymbol symbol={bank.acceleratorToken.symbol} size={54} />
             </CardIcon>
 
-            <StyledPriceLabel>{'$'+getDisplayBalance(stakedBalance, bank.acceleratorToken.decimal, 2)} </StyledPriceLabel>
+            <StyledPriceLabel>{getDisplayBalance(stakedBalance, bank.acceleratorToken.decimal, 2)} </StyledPriceLabel>
             <DescribePriceLabel>{`${bank.acceleratorTokenName} Staked`}</DescribePriceLabel>
 
           </StyledCardHeader>

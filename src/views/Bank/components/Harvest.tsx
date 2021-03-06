@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Contract } from 'ethers';
+import { BigNumber, Contract } from 'ethers';
 
 import Button from '../../../components/Button';
 import Card from '../../../components/Card';
@@ -13,7 +13,7 @@ import Value from '../../../components/Value';
 import useEarnings from '../../../hooks/useEarnings';
 import useHarvest from '../../../hooks/useHarvest';
 
-import { getDisplayBalance } from '../../../utils/formatBalance';
+import { getBalance, getDisplayBalance } from '../../../utils/formatBalance';
 import TokenSymbol from '../../../components/TokenSymbol';
 import { Bank } from '../../../basis-cash';
 import useAcceleratorEarnings from '../../../hooks/useAcceleratorEarnings';
@@ -28,6 +28,19 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
   const tokenEarnings = totalEarnings.sub(acceleratorEarnings);
   const { onReward } = useHarvest(bank);
 
+  const getDisplayAcceleratePercent = (acceleratorEarnings: BigNumber, tokenEarnings: BigNumber) => {
+    if (tokenEarnings.isZero())
+      return "0.0%";
+    if (acceleratorEarnings.isZero())
+      return "0.0%";
+
+    const acceleratorEarningsNumber: number = getBalance(acceleratorEarnings,14);
+    const tokenEarningsNumber: number = getBalance(tokenEarnings,14);
+    let ratePercent = acceleratorEarningsNumber/tokenEarningsNumber;
+    ratePercent = ratePercent*100;
+    return ratePercent.toFixed(2) + "%";
+  }
+
   const tokenName = bank.earnTokenName; // 'FBS' ? 'Share' : 'Cash'
   return (
     <Card>
@@ -37,20 +50,26 @@ const Harvest: React.FC<HarvestProps> = ({ bank }) => {
             <CardIcon>
               <TokenSymbol symbol={bank.earnToken.symbol} size={54} />
             </CardIcon>
-            <StyledPriceLabel>{getDisplayBalance(totalEarnings, 18, 2)} </StyledPriceLabel>
-            <DescribePriceLabel>{`Gross Earnings`}</DescribePriceLabel>
-            {bank.accelerator?(
-              <div>
-                <StyledPriceLabel>{getDisplayBalance(tokenEarnings, 18, 2)}</StyledPriceLabel>
-                <DescribePriceLabel>{`${tokenName} Earnings`}</DescribePriceLabel>
-              </div>
-            ):(<div></div>)}
-            {bank.accelerator?(
-              <div>
-                <StyledPriceLabel>{getDisplayBalance(acceleratorEarnings, 18, 2)}</StyledPriceLabel>
-                <DescribePriceLabel>{`Accelerated Earnings`}</DescribePriceLabel>
-              </div>
-            ):(<div></div>)}
+            <StyledPriceLabel>{`${getDisplayBalance(totalEarnings, 18, 2)} ${bank.earnTokenName}`} </StyledPriceLabel>
+            <DescribePriceLabel></DescribePriceLabel>
+            {bank.accelerator ? (
+              <DetailStyledPriceContainer>
+                <DetailDescribePriceLabel>{`${bank.depositTokenName} Earnings`}</DetailDescribePriceLabel>
+                <DetailStyledPriceLabel>{getDisplayBalance(tokenEarnings, 18, 2)}</DetailStyledPriceLabel>
+              </DetailStyledPriceContainer>
+            ) : (<div></div>)}
+            {bank.accelerator ? (
+              <DetailStyledPriceContainer>
+                <DetailDescribePriceLabel>{`${bank.acceleratorTokenName} Earnings`}</DetailDescribePriceLabel>
+                <DetailStyledPriceLabel>{getDisplayBalance(acceleratorEarnings, 18, 2)}</DetailStyledPriceLabel>
+              </DetailStyledPriceContainer>
+            ) : (<div></div>)}
+            {bank.accelerator ? (
+              <DetailStyledPriceContainer>
+                <DetailDescribePriceLabel>{`Accelerator Speed`}</DetailDescribePriceLabel>
+                <DetailStyledPriceLabel>{getDisplayAcceleratePercent(acceleratorEarnings, tokenEarnings)}</DetailStyledPriceLabel>
+              </DetailStyledPriceContainer>
+            ) : (<div></div>)}
           </StyledCardHeader>
           <StyledCardActions>
             <Button size="sm" onClick={onReward} disabled={totalEarnings.eq(0)} text="Settle" />
@@ -80,6 +99,36 @@ const DescribePriceLabel = styled.div`
   line-height: 28px;
   text-align: center;
 `;
+
+const DetailStyledPriceContainer = styled.div`
+  height: 38px;
+  width:100%;
+  display:block;
+`;
+
+const DetailDescribePriceLabel = styled.div`
+  height:100%;
+  width:160px;
+  font-size: 16px;
+  font-family: Rubik-Regular,Rubik;
+  font-weight: 400;
+  color: #313A5A;
+  line-height: 38px;
+  text-align: left;
+  display: inline-block;
+`;
+
+const DetailStyledPriceLabel = styled.div`
+  font-size: 18px;
+  font-family: Rubik-Bold, Rubik;
+  font-weight: bold;
+  color: #313A5A;
+  line-height: 38px;
+  display: inline-block;
+  float:right;
+`;
+
+
 
 const StyledCardHeader = styled.div`
   align-items: center;
