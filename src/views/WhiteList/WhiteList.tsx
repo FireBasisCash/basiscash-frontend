@@ -25,17 +25,17 @@ const WhiteList: React.FC = () => {
           title={title}
         />
         <StyleSubtitle>
-            We are starting the <b style={{color:"#1FDB84"}}>genesis mining</b>, and the whitelisting activity are currently underway. Submitting your <b style={{color:"#1FDB84"}}>Heco Address</b>(non-ERC20 address) to join whitelist.<br/>
-            The earliest <b style={{color:"#1FDB84"}}>100 submitters</b> will specially receive certain rewards. <br/>
-            Downloading and creating an address from <b style={{color:"#1FDB84"}}>Huobi Wallet</b> site <a target="_blank" style={{color:white}} href="https://huobiwallet.com">https://huobiwallet.com</a>. <br/>
+          We are starting the <b style={{ color: "#1FDB84" }}>genesis mining</b>, and the whitelisting activity are currently underway. Submitting your <b style={{ color: "#1FDB84" }}>Heco Address</b>(non-ERC20 address) to join whitelist.<br />
+            The earliest <b style={{ color: "#1FDB84" }}>100 submitters</b> will specially receive certain rewards. <br />
+            Downloading and creating an address from <b style={{ color: "#1FDB84" }}>Huobi Wallet</b> site <a target="_blank" style={{ color: white }} href="https://huobiwallet.com">https://huobiwallet.com</a>. <br />
             Everyone is welcome. Regards.🏄
         </StyleSubtitle>
         <Center>
           <StyledText>
-            
+
           </StyledText>
           {!!account ? (
-            joined ? <StyledText>You have joined whitelist already</StyledText> : <Button onClick={joinWhitelist} text="Join Whitelist" />
+            joined ? <StyledText>You have joined already!</StyledText> : <Button onClick={joinWhitelist} text="Join Whitelist" />
           ) : (
               <Center>
                 <Button onClick={() => connect('injected')} text="Unlock Wallet" />
@@ -58,7 +58,9 @@ const Center = styled.div`
 `;
 
 const StyledText = styled.div`
-  color: ${props => props.theme.color.grey[300]};
+color: #ff0000;
+font-size: 24px;
+font-weight: bold;
 `;
 
 const StyleSubtitle = styled.h3`

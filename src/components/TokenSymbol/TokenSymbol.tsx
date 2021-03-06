@@ -7,7 +7,7 @@ import fbgLogo from '../../assets/img/fbg.svg';
 import usdtLogo from '../../assets/img/USDT.png';
 import HTLogo from '../../assets/img/HT.png';
 
-const logosBySymbol: {[title: string]: string} = {
+const logosBySymbol: { [title: string]: string } = {
 
   'FBC': fbcLogo,
   'FBB': fbbLogo,
@@ -15,6 +15,12 @@ const logosBySymbol: {[title: string]: string} = {
   'FBG': fbgLogo,
   "USDT": usdtLogo,
   'HT': HTLogo,
+  "HBTC": fbcLogo,
+  'HETH': fbcLogo,
+  "HLTC": fbcLogo,
+  'HDOT': fbcLogo,
+  "HFIL": fbcLogo,
+  'MDX': fbcLogo,
 
   'FBC_USDT_LP': fbsLogo,
   'FBS_USDT_LP': fbsLogo,

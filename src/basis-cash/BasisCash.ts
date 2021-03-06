@@ -197,13 +197,12 @@ export class BasisCash {
         despositTokenPrice = await this.getETHPriceFromUniswap();
         rewardAmount = getBalance(await pool.ethRewardAmount());
 
-      } else if (bank.depositTokenName.indexOf("ETH") != -1) {
-        despositTokenPrice = await this.getETHPriceFromUniswap();
-        rewardAmount = getBalance(await pool.ethRewardAmount());
-
       } else {
-        despositTokenPrice = await this.getTokenPriceFromUniswap(bank.depositToken)
-        // rewardAmount = await pool.tokenRewardAmount();
+        if (bank.depositTokenName.indexOf("USDT") == -1) {
+          despositTokenPrice = await this.getTokenPriceFromUniswap(bank.depositToken)
+        }
+
+        rewardAmount = getBalance(await pool.tokenRewardAmount());
 
       }
 
