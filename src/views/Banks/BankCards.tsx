@@ -148,7 +148,7 @@ const StyledCards = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 900px;
+  width: 1200px;
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -177,7 +177,7 @@ const StyledCardWrapper = styled.div`
   display: flex;
   width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 3);
   position: relative;
-  margin: 8px;
+  margin: 24px;
 `;
 
 const StyledTitle = styled.h4`
