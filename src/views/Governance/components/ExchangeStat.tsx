@@ -2,22 +2,46 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '../../../components/Card';
 
+
 interface ExchangeStatProps {
   tokenName: string;
   description: string;
   count: string;
 }
 
-const ExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, count }) => {
+export const GreenExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, count }) => {
   return (
     <Card>
       <StyledCardContentInner>
-        <StyledCardTitle>{`${count}`}</StyledCardTitle>
-        <StyledDesc>{description}</StyledDesc>
+        <StyledCardTitle>{`${count} ${tokenName}`}</StyledCardTitle>
+        <GreenStyledDesc>{description}</GreenStyledDesc>
       </StyledCardContentInner>
     </Card>
   );
 };
+
+export const RedExchangeStat: React.FC<ExchangeStatProps> = ({ tokenName, description, count }) => {
+  return (
+    <Card>
+      <StyledCardContentInner>
+        <StyledCardTitle>{`${count} ${tokenName}`}</StyledCardTitle>
+        <RedStyledDesc>{description}</RedStyledDesc>
+      </StyledCardContentInner>
+    </Card>
+  );
+};
+
+
+const StyledCard = styled.div`
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: inset 1px 1px 0px ${props => props.theme.color.grey[700]};
+  border: 1px solid ${props => props.theme.color.grey[900]};
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+`
+
 
 const StyledCardTitle = styled.div`
   color: ${(props) => props.theme.color.black[200]};
@@ -26,9 +50,16 @@ const StyledCardTitle = styled.div`
   margin-bottom: ${(props) => props.theme.spacing[2]}px;
 `;
 
-const StyledDesc = styled.span`
-  color: ${(props) => props.theme.color.grey[300]};
+const RedStyledDesc = styled.span`
+  color: red;
   text-align: center;
+  font-weight:bold;
+`;
+
+const GreenStyledDesc = styled.span`
+  color: #169057;
+  text-align: center;
+  font-weight:bold;
 `;
 
 const StyledCardContentInner = styled.div`
@@ -39,5 +70,3 @@ const StyledCardContentInner = styled.div`
   flex-direction: column;
   padding: ${(props) => props.theme.spacing[2]}px;
 `;
-
-export default ExchangeStat;

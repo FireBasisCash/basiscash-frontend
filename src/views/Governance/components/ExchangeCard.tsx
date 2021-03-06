@@ -15,8 +15,6 @@ import ERC20 from '../../../basis-cash/ERC20';
 import useTokenBalance from '../../../hooks/useTokenBalance';
 import useApprove, { ApprovalState } from '../../../hooks/useApprove';
 import useCatchError from '../../../hooks/useCatchError';
-import { FBGSwapperInfo } from '../../../basis-cash/types';
-import { AlignCenter } from 'react-feather';
 
 interface ExchangeCardProps {
   action: string;
@@ -74,7 +72,7 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
     <Card>
       <CardContent>
         <StyledCardContentInner>
-          <StyledCardTitle>{`${action} ${fromToken.symbol} To ${toToken.symbol}`}</StyledCardTitle>
+          <StyledCardTitle>{`${action} ${toToken.symbol}`}</StyledCardTitle>
           <StyledExchanger>
             <StyledToken>
               <StyledCardIcon>
@@ -93,17 +91,17 @@ const ExchangeCard: React.FC<ExchangeCardProps> = ({
             </StyledToken>
           </StyledExchanger>
           <StyledDescContainer>
-            <StyledDescTitle>{`Rate:`}</StyledDescTitle>
+            <StyledDescTitle>{`Price:`}</StyledDescTitle>
             <StyledDesc>{rateDesc}</StyledDesc>
           </StyledDescContainer>
 
           <StyledDescContainer>
-            <StyledDescTitle>{`CurrentLevel:`}</StyledDescTitle>
+            <StyledDescTitle>{`Level:`}</StyledDescTitle>
             <StyledDesc>{levelDesc}</StyledDesc>
           </StyledDescContainer>
 
           <StyledDescContainer>
-            <StyledDescTitle>{`LevelCount:`}</StyledDescTitle>
+            <StyledDescTitle>{`FBG:`}</StyledDescTitle>
             <StyledDesc>{levelCountDesc}</StyledDesc>
           </StyledDescContainer>
 
@@ -171,6 +169,7 @@ const StyledDesc = styled.span`
   color: ${(props) => props.theme.color.grey[300]};
   text-align:right;
   width:100%;
+  font-weight:bold;
 `;
 const StyledDescTitle = styled.span`
   color: ${(props) => props.theme.color.grey[300]};

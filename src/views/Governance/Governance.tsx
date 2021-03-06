@@ -14,7 +14,7 @@ import useBasisCash from '../../hooks/useBasisCash';
 import { useTransactionAdder } from '../../state/transactions/hooks';
 import config from '../../config';
 import LaunchCountdown from '../../components/LaunchCountdown';
-import ExchangeStat from './components/ExchangeStat';
+import { GreenExchangeStat, RedExchangeStat } from './components/ExchangeStat';
 import useTokenBalance from '../../hooks/useTokenBalance';
 import { getDisplayBalance } from '../../utils/formatBalance';
 import { BigNumber } from 'ethers';
@@ -53,26 +53,26 @@ const Governance: React.FC = () => {
               <PageHeader
                 // icon={'🏦'}
                 title="Get Governance"
-                subtitle="Swap FBC to FBG"
+                subtitle="for more priority & right"
               />
             </Route>
             <StyledBond>
               <StyledStatsWrapper>
-                <ExchangeStat
+                <RedExchangeStat
                   tokenName="FBC"
-                  description="Fire Basisc Cash Destroyed"
+                  description="Destroyed"
                   count={getDisplayBalance(swapperInfo ? swapperInfo.swappedFBCCount : BigNumber.from(0))}
                 />
                 <Spacer size="md" />
-                <ExchangeStat
+                <GreenExchangeStat
                   tokenName="FBG"
-                  description="Fire Basisc Governance Swapped"
+                  description="Circulated"
                   count={getDisplayBalance(swapperInfo ? swapperInfo.swappedFBGCount : BigNumber.from(0))}
                 />
               </StyledStatsWrapper>
               <StyledCardWrapper>
                 <ExchangeCard
-                  action="Swap "
+                  action="Buy "
                   fromToken={basisCash.FBC}
                   fromTokenName="Fire Basis Cash"
                   toToken={basisCash.FBG}
@@ -80,7 +80,7 @@ const Governance: React.FC = () => {
                   priceDesc={`${getDisplayBalance(cashBalance)} FBC Available`}
                   onExchange={handleSwap}
                   disabled={cashBalance.isZero()}
-                  disabledDescription={"swap"}
+                  disabledDescription={"Buy"}
                   rateDesc={getRateDes(swapperInfo ? swapperInfo.swapRate : null)}
                   levelDesc={getLevelDes(swapperInfo ? swapperInfo.currentLevel : BigNumber.from(0), BigNumber.from(100))}
                   levelCountDesc={getLevelCountDes(swapperInfo ? swapperInfo.leftCountInLevel : BigNumber.from(0), BigNumber.from(10000))}
