@@ -37,6 +37,11 @@ const StyledLink = styled(NavLink)`
   &.active {
     color: ${props => props.theme.color.primary.main};
   };
+
+  @media (max-width: 768px) {
+    padding-left: 0;
+    padding-bottom: 10px;
+  };
 `
 const StyledLink2 = styled.a`
   color: ${props => props.theme.color.grey[400]};
