@@ -40,10 +40,12 @@ const Home: React.FC = () => {
 
   return (
     <Page>
-      <PageHeader
-        subtitle="Buy, sell, and provide liquidity for Fire Basis Cash and Fire Basis Shares on Uniswap"
-        title="Welcome to Fire Basis Cash!"
-      />
+      <div style={{ textAlign: 'center' }}>
+        <PageHeader
+          subtitle="Buy, sell, and provide liquidity for Fire Basis Cash and Fire Basis Shares on Uniswap"
+          title="Welcome to Fire Basis Cash!"
+        />
+      </div>
       <Spacer size="md" />
       <CardWrapper>
         <HomeCard

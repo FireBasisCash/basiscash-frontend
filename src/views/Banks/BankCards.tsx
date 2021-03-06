@@ -55,7 +55,6 @@ const BankCards: React.FC = () => {
         {activeBanks.map((bank, i) => (
           <React.Fragment key={bank.name}>
             <BankCard bank={bank} />
-            {i < activeBanks.length - 1 && <StyledSpacer />}
           </React.Fragment>
         ))}
       </StyledRow>
@@ -178,6 +177,7 @@ const StyledCardWrapper = styled.div`
   display: flex;
   width: calc((900px - ${(props) => props.theme.spacing[4]}px * 2) / 3);
   position: relative;
+  margin: 8px;
 `;
 
 const StyledTitle = styled.h4`

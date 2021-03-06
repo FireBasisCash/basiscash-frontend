@@ -94,6 +94,7 @@ interface StyledButtonProps {
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
+  vertical-align: middle;
   box-shadow: 0px 8px 34px 0px rgba(31, 219, 132, 0.6);
   border-radius: 5px 0px 5px 0px;
   align-items: center;
