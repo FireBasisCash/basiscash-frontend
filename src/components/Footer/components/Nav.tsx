@@ -9,8 +9,8 @@ const Nav: React.FC = () => {
       <StyledLink href="http://github.com/firebasiscash" target="_blank">GitHub</StyledLink>
       <StyledLink href="https://t.me/hecofire" target="_blank">Telegram</StyledLink>
       <StyledLink href="https://firebasis.medium.com" target="_blank">Medium</StyledLink>
-      <StyledLink href="https://www.dropbox.com/s/ed5vxvaple5e740/REP-Basis-Cash-06_11_2020.pdf?dl=0" target="_blank">Source</StyledLink>
-      <StyledLink href="https://github.com/FireBasisCash/basiscash-protocol/wiki" target="_blank">Audit</StyledLink>
+      <StyledLink href="https://github.com/FireBasisCash/basiscash-protocol/wiki" target="_blank">Source</StyledLink>
+      {/* <StyledLink href="https://github.com/FireBasisCash/basiscash-protocol/wiki" target="_blank">Audit</StyledLink> */}
     </StyledNav>
   )
 }
